@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="17E139j" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="VLCMainMenu">
@@ -27,7 +27,6 @@
                 <outlet property="channelsMenu" destination="1070" id="099-21-rVy"/>
                 <outlet property="chapter" destination="5149" id="hl9-Ce-6sW"/>
                 <outlet property="chapterMenu" destination="5158" id="SS6-3A-LYq"/>
-                <outlet property="checkForUpdate" destination="2457" id="1kQ-f2-JF9"/>
                 <outlet property="clearItem" destination="5084" id="y0p-o6-Zeu"/>
                 <outlet property="close_window" destination="5609" id="Ty3-fB-NSm"/>
                 <outlet property="controller" destination="999" id="Z9u-1G-MEU"/>
@@ -462,12 +461,12 @@
                             </menuItem>
                             <menuItem title="Repeat Item" keyEquivalent="r" id="5143">
                                 <connections>
-                                    <action selector="repeat:" target="-2" id="ThK-0C-9oZ"/>
+                                    <action selector="repeatPlay:" target="-2" id="s9q-8A-wdE"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Repeat Playlist" keyEquivalent="l" id="5151">
                                 <connections>
-                                    <action selector="loop:" target="-2" id="Oqv-EO-vhg"/>
+                                    <action selector="loopPlayList:" target="-2" id="CVo-ZJ-1l3"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="A→B Loop" keyEquivalent="L" id="5409">
