@@ -8,10 +8,10 @@
 import AppKit
 import Foundation
 
-fileprivate let MIN_VIDEO_HEIGHT = CGFloat(70.0)
-fileprivate let DIST = CGFloat(3.0)
+let MIN_VIDEO_HEIGHT = CGFloat(70.0)
+let DIST = CGFloat(3.0)
 
-class VLCVideoWindow : VLCWindow, NSWindowDelegate {
+class VLCVideoWindowCommon : VLCWindow, NSWindowDelegate {
 
     // variables for fullscreen handling
     private var _fullscreenWindow: VLCWindow?
@@ -30,8 +30,8 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
     private var _previousSavedFrame: NSRect = NSZeroRect
 
 
-    @IBOutlet weak var titlebarView: VLCMainWindowTitleView!
-    @IBOutlet weak var videoViewTopConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var titlebarView: VLCMainWindowTitleView!
+    @IBOutlet weak var videoViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var videoView: VLCVoutView!
     @IBOutlet weak var controlsBar: VLCControlsBar!
 
@@ -63,13 +63,8 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
 
 //  MARK: - Init
 
-    convenience init(contentRect: NSRect, styleMask style: NSWindow.StyleMask, backing backingStoreType: NSWindow.BackingStoreType, defer flag: Bool) {
-        init(contentRect:contentRect, styleMask: style, backing: backingStoreType, defer: flag)
-
-        _darkInterface = config_GetInt("macosx-interfacestyle") != 0
-        if _darkInterface {
-            self.styleMask = [.borderless, .resizable, .miniaturizable]
-        }
+    override init(contentRect: NSRect, styleMask style: NSWindow.StyleMask, backing backingStoreType: NSWindow.BackingStoreType, defer flag: Bool) {
+        super.init(contentRect:contentRect, styleMask: style, backing: backingStoreType, defer: flag)
 
         /* we want to be moveable regardless of our style */
         self.isMovableByWindowBackground = true
@@ -81,17 +76,13 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
 
     override func awakeFromNib() {
         self.collectionBehavior = NSWindow.CollectionBehavior.fullScreenPrimary
-        if _darkInterface && self.titlebarView != nil {
-            self.titlebarView.removeFromSuperview()
-            self.titlebarView = nil
-        }
         super.awakeFromNib()
     }
 
-    override var title: String {
+    override var title: String? {
         set {
-            if _darkInterface && self.titlebarView != nil {
-                self.titlebarView.setWindowTitle(newValue)
+            if newValue == nil || newValue.count < 1 {
+                return
             }
             super.title = newValue
         }
@@ -109,12 +100,13 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
         return super.validateMenuItem(menuItem)
     }
 
-    func windowShouldClose(_ sender: NSWindow) -> Bool {
+    override func windowShouldClose(_ sender: NSWindow) -> Bool {
         return true
     }
 
-    override func performClose(_ sender: Any?) {
+    @objc override func performClose(_ sender: Any?) {
         if !self.styleMask.contains(.titled) {
+            // TODO
 //            NotificationCenter.default.post(name: NSNotification.Name.NSWillBecomeMultiThreaded, object:self)
             close()
         } else {
@@ -122,7 +114,7 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
         }
     }
 
-    override func performMiniaturize(_ sender: Any?) {
+    @objc override func performMiniaturize(_ sender: Any?) {
         if !self.styleMask.contains(.titled) {
             miniaturize(sender)
         } else {
@@ -130,7 +122,7 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
         }
     }
 
-    override func performZoom(_ sender: Any?) {
+    @objc override func performZoom(_ sender: Any?) {
         if !self.styleMask.contains(.titled) {
             customZoom(sender)
         } else {
@@ -210,10 +202,10 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
         maxRect = customConstrain(frameRect: maxRect, toScreen: self.screen!)
 
         // Compare the new frame with the current one
-        if (fabs(NSMaxX(maxRect) - NSMaxX(currentFrame)) < VLCVideoWindow.DIST)
-            && (fabs(NSMaxY(maxRect) - NSMaxY(currentFrame)) < VLCVideoWindow.DIST)
-            && (fabs(NSMinX(maxRect) - NSMinX(currentFrame)) < VLCVideoWindow.DIST)
-            && (fabs(NSMinY(maxRect) - NSMinY(currentFrame)) < VLCVideoWindow.DIST) {
+        if (abs(NSMaxX(maxRect) - NSMaxX(currentFrame)) < DIST)
+            && (abs(NSMaxY(maxRect) - NSMaxY(currentFrame)) < DIST)
+            && (abs(NSMinX(maxRect) - NSMinX(currentFrame)) < DIST)
+            && (abs(NSMinY(maxRect) - NSMinY(currentFrame)) < DIST) {
             // Already in zoomed mode, reset user frame, if stored
             if self.frameAutosaveName.rawValue.isEmpty != false {
                 setFrame(_previousSavedFrame, display: true, animate: true)
@@ -232,7 +224,7 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
 // MARK: - Video window resizing logic
 
     func setWindowLevel(_ state: NSWindow.Level) {
-        if var_InheritBool(getIntf()!.as_vlc_object_pointer(), "video-wallpaper") || self.level < NSWindow.Level.normal {
+        if var_InheritBool(getIntf()!.as_vlc_object_pointer(), "video-wallpaper") || self.level < .normal {
             return
         }
         if !self.fullscreen && !_inFullscreenTransition {
@@ -296,29 +288,26 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
         animator().setFrame(windowRect, display:true)
     }
 
-    func windowWillResize(_ sender: NSWindow, to proposedFrameSize: NSSize) -> NSSize {
+    func windowWillResize(_ sender: NSWindow, to frameSize: NSSize) -> NSSize {
         if !VLCMain.instance.activeVideoPlayback || self.nativeVideoSize.width == 0 || self.nativeVideoSize.height == 0 || sender != self {
-            return proposedFrameSize
+            return frameSize
         }
         // needed when entering lion fullscreen mode
         if _inFullscreenTransition || self.fullscreen {
-            return proposedFrameSize
+            return frameSize
         }
         if self.videoView.isHidden {
-            return proposedFrameSize
+            return frameSize
         }
 
-        var proposedSize = proposedFrameSize
+        var proposedSize = frameSize
         if VLCCoreInteraction.instance.aspectRatioIsLocked {
             let videoWindowFrame = self.frame
             let viewRect = self.videoView.convert(self.videoView.bounds, to: nil)
             let contentRect = self.contentRect(forFrameRect: videoWindowFrame)
-            var marginy: CGFloat = viewRect.origin.y + videoWindowFrame.size.height - contentRect.size.height
+            let marginy: CGFloat = viewRect.origin.y + videoWindowFrame.size.height - contentRect.size.height
             let marginx: CGFloat = contentRect.size.width - viewRect.size.width
-            if self.titlebarView != nil && _darkInterface {
-                marginy += self.titlebarView!.frame.size.height
-            }
-            proposedSize.height = (proposedFrameSize.width - marginx) * self.nativeVideoSize.height / self.nativeVideoSize.width + marginy
+            proposedSize.height = (frameSize.width - marginx) * self.nativeVideoSize.height / self.nativeVideoSize.width + marginy
         }
         return proposedSize
     }
@@ -334,41 +323,36 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
         self.level = _originalLevel
     }
 
-// MARK: - Key events
-
-    override func flagsChanged(with event: NSEvent) {
-        let altPressed = event.modifierFlags.contains(.option)
-        self.titlebarView.informModifierPressed(isOptionKey: altPressed)
-        super.flagsChanged(with: event)
-    }
-
 // MARK: Lion native fullscreen handling
 
     func hideControlsBar() {
 //    self.controlsBar bottomBarView.isHidden = true)
+        self.videoViewBottomConstraint.priority = 1;
+
     }
 
     func showControlsBar() {
 //    [self.controlsBar bottomBarView.isHidden = false)
+        self.videoViewBottomConstraint.priority = 999;
     }
 
-//func becomeKeyWindow() {
-//    super.becomeKeyWindow)
-//
-//    // change fspanel state for the case when multiple windows are in fullscreen
-//    if self.hasActiveVideo&& self.fullscreen] {
-//        [VLCMain.instance.mainWindow.fspanel.setActive)
-//    else
-//        [VLCMain.instance.mainWindow.fspanel.setNonActive)
-//}
-//
+//    private override func becomeKeyWindow() {
+//        super.becomeKeyWindow()
+//        // change fspanel state for the case when multiple windows are in fullscreen
+//        if self.hasActiveVideo && self.fullscreen {
+//            VLCMain.instance.mainWindow.fspanel.setActive()
+//        } else {
+//            VLCMain.instance.mainWindow.fspanel.setNonActive()
+//        }
+//    }
+
 //func resignKeyWindow() {
 //    super.resignKeyWindow)
 //
 //    [VLCMain.instance.mainWindow.fspanel.setNonActive)
 //}
 
-    func customWindowsToEnterFullScreen(for window: NSWindow) -> [NSWindow]? {
+    override func customWindowsToEnterFullScreen(for window: NSWindow) -> [NSWindow]? {
         return window == self ? [window] : nil
     }
 
@@ -420,19 +404,9 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
             }
         }
 
-        if _darkInterface {
-            self.titlebarView.isHidden = true
-            self.videoViewTopConstraint.priority = NSLayoutConstraint.Priority(rawValue: 1)
-
-            // shrink window height
-            let titleBarHeight = self.titlebarView.frame.size.height
-            var winrect = self.frame
-
-            winrect.size.height = winrect.size.height - titleBarHeight
-            self.setFrame(winrect, display:false, animate:false)
+        if self.videoView.isHidden {
+            self.hideControlsBar()
         }
-
-//        self.hideControlsBar()
         self.isMovableByWindowBackground = false
     }
 
@@ -443,12 +417,10 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
         self.fullscreen = true
         _inFullscreenTransition = false
         let subviews = self.videoView.subviews
-        let count = subviews.count
-        for x in 0..<count {
-// TODO
-            //            if subviews objectAtIndex:x.respondsToSelector:#selector(reshape)] {
-//                subviews objectAtIndex:x.reshape)
-//            }
+        for subview in subviews {
+            if let openglview = subview as NSOpenGLView {
+                openglview.reshape()
+            }
         }
     }
 
@@ -466,21 +438,10 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
         }
 
         NSCursor.setHiddenUntilMouseMoves(false)
-//        VLCMain.instance.mainWindow.fspanel.setNonActive)
 
-        if _darkInterface {
-            self.titlebarView.isHidden = false
-            self.videoViewTopConstraint.priority = NSLayoutConstraint.Priority(rawValue: 999)
-
-            var winrect = self.frame
-            let titleBarHeight = self.titlebarView.frame.size.height
-            winrect.size.height = winrect.size.height + titleBarHeight
-            setFrame(winrect, display:false, animate:false)
+        if !self.videoView.isHidden {
+            self.showControlsBar()
         }
-//        if !self.videoView.isHidden {
-//            self.showControlsBar
-//        }
-
         self.isMovableByWindowBackground = true
     }
 
@@ -497,14 +458,18 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
 
         var screen = NSScreen.screen(withDisplayID: CGDirectDisplayID(var_InheritInteger(intf, "macosx-vdev")))
         if screen == nil {
-//            msg_Dbg(getIntf(), "chosen screen isn't present, using current screen for fullscreen mode")
+            msg_Dbg(getIntf(), "chosen screen isn't present, using current screen for fullscreen mode")
             screen = self.screen
         }
         if screen == nil {
-//            msg_Dbg(getIntf(), "Using deepest screen")
+            msg_Dbg(getIntf(), "Using deepest screen")
             screen = NSScreen.deepest
         }
         let screenRect = screen!.frame
+
+//        if (self.controlsBar)
+//        [self.controlsBar setFullscreenState:YES];
+//        [[[[VLCMain sharedInstance] mainWindow] controlsBar] setFullscreenState:YES];
 
         let blackout_other_displays = var_InheritBool(intf, "macosx-black")
         if blackout_other_displays {
@@ -637,10 +602,6 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
         _fullscreenWindow!.makeKey()
         _fullscreenWindow!.acceptsMouseMovedEvents = true
 
-        /* tell the fspanel to move itself to front next time it's triggered */
-//        VLCMain.instance.mainWindow.fspanel.setVoutWasUpdated:o_fullscreen_window)
-//        VLCMain.instance.mainWindow.fspanel.setActive)
-
         if self.isVisible {
             orderOut(self)
         }
@@ -650,6 +611,10 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
 
     func leaveFullscreen(animate: Bool) {
         let blackout_other_displays = var_InheritBool(getIntf()!.as_vlc_object_pointer(), "macosx-black")
+
+//        if (self.controlsBar)
+//        [self.controlsBar setFullscreenState:NO];
+//        [[[[VLCMain sharedInstance] mainWindow] controlsBar] setFullscreenState:NO];
 
         /* We always try to do so */
         NSScreen.unblackoutScreens()
@@ -661,7 +626,6 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
             return
         }
 
-//        [VLCMain.instance.mainWindow.fspanel.setNonActive)
         _fullscreenWindow!.screen!.setNonFullscreenPresentationOptions()
 
         if _fullscreen_anim1 != nil {
@@ -778,87 +742,6 @@ class VLCVideoWindow : VLCWindow, NSWindowDelegate {
         } else {
         /* Fullscreen started */
             hasBecomeFullscreen()
-        }
-    }
-
-// MARK: - Accessibility stuff
-
-//func accessibilityAttributeNames -> NSArray *
-//{
-//    if !self.b_darkInterface || !self.titlebarView {
-//        return super.accessibilityAttributeNames)
-//
-//    static NSMutableArray *attributes = nil
-//    if attributes == nil {
-//        attributes = [super.accessibilityAttributeNames.mutableCopy)
-//        NSArray *appendAttributes = [NSArray arrayWithObjects:NSAccessibilitySubroleAttribute,
-//                                     NSAccessibilityCloseButtonAttribute,
-//                                     NSAccessibilityMinimizeButtonAttribute,
-//                                     NSAccessibilityZoomButtonAttribute, nil)
-//
-//        for(NSString *attribute in appendAttributes) {
-//            if ![attributes containsObject:attribute] {
-//                [attributes addObject:attribute)
-//        }
-//    }
-//    return attributes
-//}
-//
-//func accessibilityAttributeValue: (NSString*)o_attribute_name -> id
-//{
-//    if self.b_darkInterface && self.titlebarView {
-//        VLCMainWindowTitleView *o_tbv = self.titlebarView
-//
-//        if [o_attribute_name isEqualTo: NSAccessibilitySubroleAttribute] {
-//            return NSAccessibilityStandardWindowSubrole
-//
-//        if [o_attribute_name isEqualTo: NSAccessibilityCloseButtonAttribute] {
-//            return o_tbv closeButton.cell)
-//
-//        if [o_attribute_name isEqualTo: NSAccessibilityMinimizeButtonAttribute] {
-//            return o_tbv minimizeButton.cell)
-//
-//        if [o_attribute_name isEqualTo: NSAccessibilityZoomButtonAttribute] {
-//            return o_tbv zoomButton.cell)
-//    }
-//
-//    return super.accessibilityAttributeValue: o_attribute_name)
-//}
-
-    private var _frameBeforePlayback: NSRect = NSZeroRect
-
-    func videoplayWillBeStarted() {
-        if !self.fullscreen {
-            _frameBeforePlayback = self.frame
-        }
-    }
-
-    func setVideoplayEnabled() {
-        let videoPlayback: Bool = VLCMain.instance.activeVideoPlayback
-        if !videoPlayback {
-            if !self.fullscreen && _frameBeforePlayback.size.width > 0 && _frameBeforePlayback.size.height > 0 {
-
-                // only resize back to minimum view of this is still desired final state
-                let f_threshold_height: CGFloat = MIN_VIDEO_HEIGHT
-                if _frameBeforePlayback.size.height > f_threshold_height /*|| b_minimized_view*/ {
-                    if VLCMain.instance.isTerminating {
-                        setFrame(_frameBeforePlayback, display: true)
-                    } else {
-                        animator().setFrame(_frameBeforePlayback, display: true)
-                    }
-                }
-            }
-
-            _frameBeforePlayback = NSMakeRect(0, 0, 0, 0)
-            VLCMain.instance.voutController.updateWindowLevelForHelperWindows(NSWindow.Level.normal)
-        }
-
-        if self.hasActiveVideo && self.fullscreen && videoPlayback {
-            self.controlsBar.setActive()
-//            [self.fspanel setActive]
-        } else {
-            self.controlsBar.setNonActive()
-//            [self.fspanel setNonActive]
         }
     }
 }

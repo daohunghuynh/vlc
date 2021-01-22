@@ -10,169 +10,126 @@ import AppKit
 import Foundation
 
 fileprivate let kFileTabViewId     = "file"
-fileprivate let kDiscTabViewId     = "disc"
 fileprivate let kNetworkTabViewId  = "network"
 fileprivate let kCaptureTabViewId  = "capture"
 
 
 class VLCOpenWindowController : NSWindowController, NSTabViewDelegate {
 
-//@IBOutlet weak var mrlTextField: NSTextField!
-//@IBOutlet weak var mrlButton: NSButton!
-//@IBOutlet weak var mrlButtonLabel: NSButton!
+    @IBOutlet weak var mrlTextField: NSTextField!
+    @IBOutlet weak var mrlButton: NSButton!
+    @IBOutlet weak var mrlButtonLabel: NSButton!
     @IBOutlet weak var tabView: NSTabView!
-//@IBOutlet weak var mrlViewHeightConstraint: NSLayoutConstraint!
-//
-//@IBOutlet weak var okButton: NSButton!
-//@IBOutlet weak var cancelButton: NSButton!
+    @IBOutlet weak var mrlViewHeightConstraint: NSLayoutConstraint!
 
-/* bottom-line items */
-//@IBOutlet weak var outputCheckbox: NSButton!
-//@IBOutlet weak var outputSettingsButton: NSButton!
+    @IBOutlet weak var okButton: NSButton!
+    @IBOutlet weak var cancelButton: NSButton!
 
-/* open file */
+    /* bottom-line items */
+    @IBOutlet weak var outputCheckbox: NSButton!
+    @IBOutlet weak var outputSettingsButton: NSButton!
+
+    /* open file */
     @IBOutlet weak var fileNameLabel: NSTextField!
     @IBOutlet weak var fileNameStubLabel: NSTextField!
     @IBOutlet weak var fileIconWell: NSImageView!
-//@IBOutlet weak var fileBrowseButton: NSButton!
+    @IBOutlet weak var fileBrowseButton: NSButton!
     @IBOutlet weak var fileTreatAsPipeButton: NSButton!
-//@IBOutlet weak var fileSlaveCheckbox: NSButton!
-//@IBOutlet weak var fileSelectSlaveButton: NSButton!
-//@IBOutlet weak var fileSlaveFilenameLabel: NSTextField!
-//@IBOutlet weak var fileSlaveIconWell: NSImageView!
-//@IBOutlet weak var fileSubtitlesFilenameLabel: NSTextField!
-//@IBOutlet weak var fileSubtitlesIconWell: NSImageView!
-//@IBOutlet weak var fileCustomTimingCheckbox: NSButton!
-//@IBOutlet weak var fileStartTimeTextField: NSTextField!
-//@IBOutlet weak var fileStartTimeLabel: NSTextField!
-//@IBOutlet weak var fileStopTimeTextField: NSTextField!
-//@IBOutlet weak var fileStopTimeLabel: NSTextField!
+    @IBOutlet weak var fileSlaveCheckbox: NSButton!
+    @IBOutlet weak var fileSelectSlaveButton: NSButton!
+    @IBOutlet weak var fileSlaveFilenameLabel: NSTextField!
+    @IBOutlet weak var fileSlaveIconWell: NSImageView!
+    @IBOutlet weak var fileSubtitlesFilenameLabel: NSTextField!
+    @IBOutlet weak var fileSubtitlesIconWell: NSImageView!
+    @IBOutlet weak var fileCustomTimingCheckbox: NSButton!
+    @IBOutlet weak var fileStartTimeTextField: NSTextField!
+    @IBOutlet weak var fileStartTimeLabel: NSTextField!
+    @IBOutlet weak var fileStopTimeTextField: NSTextField!
+    @IBOutlet weak var fileStopTimeLabel: NSTextField!
 
-/* open disc */
-//@IBOutlet weak var discSelectorPopup: NSPopUpButton!
+    /* open network */
+    @IBOutlet weak var netHTTPURLLabel: NSTextField!
+    @IBOutlet weak var netHTTPURLTextField: NSTextField!
+    @IBOutlet weak var netHelpLabel: NSTextField!
 
-//@IBOutlet weak var discNoDiscView: NSView!
-//@IBOutlet weak var discNoDiscLabel: NSTextField!
-//@IBOutlet weak var discNoDiscVideoTSButton: NSButton!
+    /* open UDP stuff panel */
+    @IBOutlet weak var netHelpUDPLabel: NSTextField!
+    @IBOutlet weak var netUDPProtocolMatrix: NSMatrix!
+    @IBOutlet weak var netUDPProtocolLabel: NSTextField!
+    @IBOutlet weak var netUDPAddressLabel: NSTextField!
+    @IBOutlet weak var netUDPModeLabel: NSTextField!
+    @IBOutlet weak var netModeMatrix: NSMatrix!
+    @IBOutlet weak var netOpenUDPButton: NSButton!
+    @IBOutlet weak var netUDPCancelButton: NSButton!
+    @IBOutlet weak var netUDPOKButton: NSButton!
+    @property (readwrite)       IBOutlet NSWindow *netUDPPanel
+    @IBOutlet weak var netUDPPortTextField: NSTextField!
+    @IBOutlet weak var netUDPPortLabel: NSTextField!
+    @IBOutlet weak var netUDPPortStepper: NSStepper!
+    @IBOutlet weak var netUDPMAddressTextField: NSTextField!
+    @IBOutlet weak var netUDPMAddressLabel: NSTextField!
+    @IBOutlet weak var netUDPMPortTextField: NSTextField!
+    @IBOutlet weak var netUDPMPortLabel: NSTextField!
+    @IBOutlet weak var netUDPMPortStepper: NSStepper!
 
-//@IBOutlet weak var discAudioCDView: NSView!
-//@IBOutlet weak var discAudioCDLabel: NSTextField!
-//@IBOutlet weak var discAudioCDTrackCountLabel: NSTextField!
-//@IBOutlet weak var discAudioCDVideoTSButton: NSButton!
-
-//@IBOutlet weak var discDVDView: NSView!
-//@IBOutlet weak var discDVDLabel: NSTextField!
-//@IBOutlet weak var discDVDDisableMenusButton: NSButton!
-//@IBOutlet weak var discDVDVideoTSButton: NSButton!
-
-//@IBOutlet weak var discDVDwomenusView: NSView!
-//@IBOutlet weak var discDVDwomenusLabel: NSTextField!
-//@IBOutlet weak var discDVDwomenusEnableMenusButton: NSButton!
-//@IBOutlet weak var discDVDwomenusVideoTSButton: NSButton!
-//@IBOutlet weak var discDVDwomenusTitleTextField: NSTextField!
-//@IBOutlet weak var discDVDwomenusTitleLabel: NSTextField!
-//@IBOutlet weak var discDVDwomenusTitleStepper: NSStepper!
-//@IBOutlet weak var discDVDwomenusChapterTextField: NSTextField!
-//@IBOutlet weak var discDVDwomenusChapterLabel: NSTextField!
-//@IBOutlet weak var discDVDwomenusChapterStepper: NSStepper!
-
-//@IBOutlet weak var discVCDView: NSView!
-//@IBOutlet weak var discVCDLabel: NSTextField!
-//@IBOutlet weak var discVCDVideoTSButton: NSButton!
-//@IBOutlet weak var discVCDTitleTextField: NSTextField!
-//@IBOutlet weak var discVCDTitleLabel: NSTextField!
-//@IBOutlet weak var discVCDTitleStepper: NSStepper!
-//@IBOutlet weak var discVCDChapterTextField: NSTextField!
-//@IBOutlet weak var discVCDChapterLabel: NSTextField!
-//@IBOutlet weak var discVCDChapterStepper: NSStepper!
-
-//@IBOutlet weak var discBDView: NSView!
-//@IBOutlet weak var discBDLabel: NSTextField!
-//@IBOutlet weak var discBDVideoTSButton: NSButton!
-
-/* open network */
-//@IBOutlet weak var netHTTPURLLabel: NSTextField!
-//@IBOutlet weak var netHTTPURLTextField: NSTextField!
-//@IBOutlet weak var netHelpLabel: NSTextField!
-
-/* open UDP stuff panel */
-//@IBOutlet weak var netHelpUDPLabel: NSTextField!
-//@IBOutlet weak var netUDPProtocolMatrix: NSMatrix!
-//@IBOutlet weak var netUDPProtocolLabel: NSTextField!
-//@IBOutlet weak var netUDPAddressLabel: NSTextField!
-//@IBOutlet weak var netUDPModeLabel: NSTextField!
-//@IBOutlet weak var netModeMatrix: NSMatrix!
-//@IBOutlet weak var netOpenUDPButton: NSButton!
-//@IBOutlet weak var netUDPCancelButton: NSButton!
-//@IBOutlet weak var netUDPOKButton: NSButton!
-//@property (readwrite)       IBOutlet NSWindow *netUDPPanel
-//@IBOutlet weak var netUDPPortTextField: NSTextField!
-//@IBOutlet weak var netUDPPortLabel: NSTextField!
-//@IBOutlet weak var netUDPPortStepper: NSStepper!
-//@IBOutlet weak var netUDPMAddressTextField: NSTextField!
-//@IBOutlet weak var netUDPMAddressLabel: NSTextField!
-//@IBOutlet weak var netUDPMPortTextField: NSTextField!
-//@IBOutlet weak var netUDPMPortLabel: NSTextField!
-//@IBOutlet weak var netUDPMPortStepper: NSStepper!
-
-/* open subtitle file */
+    /* open subtitle file */
     @IBOutlet weak var fileSubCheckbox: NSButton!
-//@IBOutlet weak var fileSubSettingsButton: NSButton!
-//@property (readwrite) IBOutlet NSPanel *fileSubSheet
-//@IBOutlet weak var fileSubPathLabel: NSTextField!
-//@IBOutlet weak var fileSubPathTextField: NSTextField!
-//@IBOutlet weak var fileSubIconView: NSImageView!
-//@IBOutlet weak var fileSubBrowseButton: NSButton!
+    @IBOutlet weak var fileSubSettingsButton: NSButton!
+    @property (readwrite) IBOutlet NSPanel *fileSubSheet
+    @IBOutlet weak var fileSubPathLabel: NSTextField!
+    @IBOutlet weak var fileSubPathTextField: NSTextField!
+    @IBOutlet weak var fileSubIconView: NSImageView!
+    @IBOutlet weak var fileSubBrowseButton: NSButton!
     @IBOutlet weak var fileSubOverrideCheckbox: NSButton!
-//@IBOutlet weak var fileSubDelayTextField: NSTextField!
-//@IBOutlet weak var fileSubDelayLabel: NSTextField!
-//@IBOutlet weak var fileSubDelayStepper: NSStepper!
-//@IBOutlet weak var fileSubFPSTextField: NSTextField!
-//@IBOutlet weak var fileSubFPSLabel: NSTextField!
-//@IBOutlet weak var fileSubFPSStepper: NSStepper!
+    @IBOutlet weak var fileSubDelayTextField: NSTextField!
+    @IBOutlet weak var fileSubDelayLabel: NSTextField!
+    @IBOutlet weak var fileSubDelayStepper: NSStepper!
+    @IBOutlet weak var fileSubFPSTextField: NSTextField!
+    @IBOutlet weak var fileSubFPSLabel: NSTextField!
+    @IBOutlet weak var fileSubFPSStepper: NSStepper!
     @IBOutlet weak var fileSubEncodingPopup: NSPopUpButton!
-//@IBOutlet weak var fileSubEncodingLabel: NSTextField!
+    @IBOutlet weak var fileSubEncodingLabel: NSTextField!
     @IBOutlet weak var fileSubSizePopup: NSPopUpButton!
-//@IBOutlet weak var fileSubSizeLabel: NSTextField!
+    @IBOutlet weak var fileSubSizeLabel: NSTextField!
     @IBOutlet weak var fileSubAlignPopup: NSPopUpButton!
-//@IBOutlet weak var fileSubAlignLabel: NSTextField!
-//@IBOutlet weak var fileSubOKButton: NSButton!
-//@IBOutlet weak var fileSubFontBox: NSBox!
-//@IBOutlet weak var fileSubFileBox: NSBox!
+    @IBOutlet weak var fileSubAlignLabel: NSTextField!
+    @IBOutlet weak var fileSubOKButton: NSButton!
+    @IBOutlet weak var fileSubFontBox: NSBox!
+    @IBOutlet weak var fileSubFileBox: NSBox!
 
-/* generic capturing stuff */
-//@IBOutlet weak var captureModePopup: NSPopUpButton!
-//@IBOutlet weak var captureTabView: NSTabView!
+    /* generic capturing stuff */
+    @IBOutlet weak var captureModePopup: NSPopUpButton!
+    @IBOutlet weak var captureTabView: NSTabView!
 
-/* screen support */
-//@IBOutlet weak var screenFPSTextField: NSTextField!
-//@IBOutlet weak var screenFPSLabel: NSTextField!
-//@IBOutlet weak var screenFPSStepper: NSStepper!
-//@IBOutlet weak var screenLabel: NSTextField!
-//@IBOutlet weak var screenPopup: NSPopUpButton!
-//@IBOutlet weak var screenLeftTextField: NSTextField!
-//@IBOutlet weak var screenLeftLabel: NSTextField!
-//@IBOutlet weak var screenLeftStepper: NSStepper!
-//@IBOutlet weak var screenTopTextField: NSTextField!
-//@IBOutlet weak var screenTopLabel: NSTextField!
-//@IBOutlet weak var screenTopStepper: NSStepper!
-//@IBOutlet weak var screenWidthTextField: NSTextField!
-//@IBOutlet weak var screenWidthLabel: NSTextField!
-//@IBOutlet weak var screenWidthStepper: NSStepper!
-//@IBOutlet weak var screenHeightTextField: NSTextField!
-//@IBOutlet weak var screenHeightLabel: NSTextField!
-//@IBOutlet weak var screenHeightStepper: NSStepper!
-//@IBOutlet weak var screenFollowMouseCheckbox: NSButton!
-//@IBOutlet weak var screenqtkAudioPopup: NSPopUpButton!
-//@IBOutlet weak var screenqtkAudioCheckbox: NSButton!
+    /* screen support */
+    @IBOutlet weak var screenFPSTextField: NSTextField!
+    @IBOutlet weak var screenFPSLabel: NSTextField!
+    @IBOutlet weak var screenFPSStepper: NSStepper!
+    @IBOutlet weak var screenLabel: NSTextField!
+    @IBOutlet weak var screenPopup: NSPopUpButton!
+    @IBOutlet weak var screenLeftTextField: NSTextField!
+    @IBOutlet weak var screenLeftLabel: NSTextField!
+    @IBOutlet weak var screenLeftStepper: NSStepper!
+    @IBOutlet weak var screenTopTextField: NSTextField!
+    @IBOutlet weak var screenTopLabel: NSTextField!
+    @IBOutlet weak var screenTopStepper: NSStepper!
+    @IBOutlet weak var screenWidthTextField: NSTextField!
+    @IBOutlet weak var screenWidthLabel: NSTextField!
+    @IBOutlet weak var screenWidthStepper: NSStepper!
+    @IBOutlet weak var screenHeightTextField: NSTextField!
+    @IBOutlet weak var screenHeightLabel: NSTextField!
+    @IBOutlet weak var screenHeightStepper: NSStepper!
+    @IBOutlet weak var screenFollowMouseCheckbox: NSButton!
+    @IBOutlet weak var screenqtkAudioPopup: NSPopUpButton!
+    @IBOutlet weak var screenqtkAudioCheckbox: NSButton!
 
-/* QTK support */
-//@IBOutlet weak var qtkVideoDevicePopup: NSPopUpButton!
-//@IBOutlet weak var qtkVideoCheckbox: NSButton!
-//@IBOutlet weak var qtkAudioDevicePopup: NSPopUpButton!
-//@IBOutlet weak var qtkAudioCheckbox: NSButton!
+    /* QTK support */
+    @IBOutlet weak var qtkVideoDevicePopup: NSPopUpButton!
+    @IBOutlet weak var qtkVideoCheckbox: NSButton!
+    @IBOutlet weak var qtkAudioDevicePopup: NSPopUpButton!
+    @IBOutlet weak var qtkAudioCheckbox: NSButton!
 
-/* text field / stepper binding values - subs panel */
+    /* text field / stepper binding values - subs panel */
     var fileSubDelay: Float = 0.0
     var fileSubFps: Float = 0.0
 
@@ -223,238 +180,219 @@ class VLCOpenWindowController : NSWindowController, NSTabViewDelegate {
 //
 //func openFileWithAction:(void (^)(NSArray *files))action -> void
 
-//    private var _output: VLCOutput
-//    private var b_outputNibLoaded: Bool
-//    private var _avvideoDevices: NSArray
-//    private var _avaudioDevices: NSArray
-//    private var _avCurrentDeviceUID: String
-//    private var _avCurrentAudioDeviceUID: String
+    private var _output: VLCOutput!
+    private var b_outputNibLoaded: Bool
+    private var _avvideoDevices: NSArray
+    private var _avaudioDevices: NSArray
+    private var _avCurrentDeviceUID: String
+    private var _avCurrentAudioDeviceUID: String
 
-//    private var b_autoplay: Bool
-//    private var b_nodvdmenus: Bool
-//    private var _currentOpticalMediaView: NSView
-//    private var _currentOpticalMediaIconView: NSImageView
-//    private var _allMediaDevices: NSMutableArray
-//    private var _opticalDevices: NSArray
-//    private var _specialMediaFolders: NSMutableArray
+    private var b_autoplay: Bool
+    private var b_nodvdmenus: Bool
+    private var _currentOpticalMediaView: NSView
+    private var _currentOpticalMediaIconView: NSImageView
+    private var _allMediaDevices: NSMutableArray
+    private var _opticalDevices: NSArray
+    private var _specialMediaFolders: NSMutableArray
     private var filePath: String = ""
-//    private var _fileSlavePath: String
+    private var _fileSlavePath: String
     private var subPath: String = ""
     private var MRL: String = ""
-//    private var _displayInfos: NSMutableArray
+    private var _displayInfos: [UnsafeMutablePointer<display_info_t>] = []
 
 
-//#pragma mark Init
+    // MARK: - Init
 
-    convenience init() {
+    init() {
         self.init(windowNibName: NSNib.Name("Open"))
     }
 
+    deinit {
+        for p_displayInfo in _displayInfos {
+            free([p_displayInfo])
+        }
+    }
 
-//    func dealloc -> void
-//    {
-//    for (int i = 0; i < self.displayInfos count]; i ++) {
-//    NSValue *v = self.displayInfos objectAtIndex:i]
-//    free([v pointerValue])
-//    }
-//    }
-//
-//    func windowDidLoad -> void
-//    {
-//    _output = [VLCOutput new]
-//
-//    [self.window setCollectionBehavior: NSWindowCollectionBehaviorFullScreenAuxiliary]
-//
-//    [self.window setTitle: _NS("Open Source")]
-//    self.mrlButtonLabel setTitle: _NS("Media Resource Locator (MRL)")]
-//
-//    self.okButton setTitle: _NS("Open")]
-//    self.cancelButton setTitle: _NS("Cancel")]
-//
-//    self.outputCheckbox setTitle:_NS("Stream output:")]
-//    self.outputSettingsButton setTitle:_NS("Settings...")]
-//
-//    self.tabView accessibilitySetOverrideValue:_NS("Choose media input type") forAttribute:NSAccessibilityDescriptionAttribute]
-//    [self.tabView tabViewItemAtIndex: 0] setLabel: _NS("File")]
-//    [self.tabView tabViewItemAtIndex: 1] setLabel: _NS("Disc")]
-//    [self.tabView tabViewItemAtIndex: 2] setLabel: _NS("Network")]
-//    [self.tabView tabViewItemAtIndex: 3] setLabel: _NS("Capture")]
-//    self.fileNameLabel.stringValue = ""]
-//    self.fileNameStubLabel.stringValue =  _NS("Choose a file")]
-//    self.fileIconWell.image = [NSImage imageNamed:"generic"]]
-//    self.fileBrowseButton setTitle: _NS("Browse...")]
-//    [self.fileBrowseButton cell] accessibilitySetOverrideValue:_NS("Select a file for playback") forAttribute:NSAccessibilityDescriptionAttribute]
-//    self.fileTreatAsPipeButton setTitle: _NS("Treat as a pipe rather than as a file")]
-//    self.fileTreatAsPipeButton.isHidden = false]
-//    self.fileSlaveCheckbox setTitle: _NS("Play another media synchronously")]
-//    self.fileSelectSlaveButton setTitle: _NS("Choose...")]
-//    [self.fileBrowseButton cell] accessibilitySetOverrideValue:_NS("Select another file to play in sync with the previously selected file") forAttribute:NSAccessibilityDescriptionAttribute]
-//    self.fileSlaveFilenameLabel.stringValue =  ""]
-//    self.fileSlaveIconWell.image = NULL]
-//    self.fileSubtitlesFilenameLabel.stringValue =  ""]
-//    self.fileSubtitlesIconWell.image = NULL]
-//    self.fileCustomTimingCheckbox setTitle: _NS("Custom playback")]
-//    self.fileStartTimeLabel.stringValue =  _NS("Start time")]
-//    self.fileStartTimeTextField.stringValue =  ""]
-//    self.fileStopTimeLabel.stringValue =  _NS("Stop time")]
-//    self.fileStopTimeTextField.stringValue =  ""]
-//
-//    self.discSelectorPopup removeAllItems]
-//    self.discSelectorPopup.isHidden = false]
-//    String *oVideoTS = _NS("Open VIDEO_TS / BDMV folder")
-//    self.discNoDiscLabel.stringValue =  _NS("Insert Disc")]
-//    self.discNoDiscVideoTSButton setTitle: oVideoTS]
-//    self.discAudioCDLabel.stringValue =  _NS("Audio CD")]
-//    self.discAudioCDTrackCountLabel.stringValue =  ""]
-//    self.discAudioCDVideoTSButton setTitle: oVideoTS]
-//    self.discDVDLabel.stringValue =  ""]
-//    self.discDVDDisableMenusButton setTitle: _NS("Disable DVD menus")]
-//    self.discDVDVideoTSButton setTitle: oVideoTS]
-//    self.discDVDwomenusLabel.stringValue =  ""]
-//    self.discDVDwomenusEnableMenusButton setTitle: _NS("Enable DVD menus")]
-//    self.discDVDwomenusVideoTSButton setTitle: oVideoTS]
-//    self.discDVDwomenusTitleLabel.stringValue =  _NS("Title")]
-//    self.discDVDwomenusChapterLabel.stringValue =  _NS("Chapter")]
-//    self.discVCDTitleLabel.stringValue =  _NS("Title")]
-//    self.discVCDChapterLabel.stringValue =  _NS("Chapter")]
-//    self.discVCDVideoTSButton setTitle: oVideoTS]
-//    self.discBDVideoTSButton setTitle: oVideoTS]
-//
-//    self.netUDPPortLabel.stringValue =  _NS("Port")]
-//    self.netUDPMAddressLabel.stringValue =  _NS("IP Address")]
-//    self.netUDPMPortLabel.stringValue =  _NS("Port")]
-//    self.netHTTPURLLabel.stringValue =  _NS("URL")]
-//    self.netHelpLabel.stringValue =  _NS("To Open a usual network stream (HTTP, RTSP, RTMP, MMS, FTP, etc.), just enter the URL in the field above. If you want to open a RTP or UDP stream, press the button below.")]
-//    self.netHelpUDPLabel.stringValue =  _NS("If you want to open a multicast stream, enter the respective IP address given by the stream provider. In unicast mode, VLC will use your machine's IP automatically.\n\nTo open a stream using a different protocol, just press Cancel to close this sheet.")]
-//    self.netHTTPURLTextField accessibilitySetOverrideValue:_NS("Enter a stream URL here. To open RTP or UDP streams, use the respective button below.") forAttribute:NSAccessibilityDescriptionAttribute]
-//    self.netUDPCancelButton setTitle: _NS("Cancel")]
-//    self.netUDPOKButton setTitle: _NS("Open")]
-//    self.netOpenUDPButton setTitle: _NS("Open RTP/UDP Stream")]
-//    self.netUDPModeLabel.stringValue =  _NS("Mode")]
-//    self.netUDPProtocolLabel.stringValue =  _NS("Protocol")]
-//    self.netUDPAddressLabel.stringValue =  _NS("Address")]
-//
-//    [self.netModeMatrix cellAtRow:0 column:0] setTitle: _NS("Unicast")]
-//    [self.netModeMatrix cellAtRow:1 column:0] setTitle: _NS("Multicast")]
-//
-//    self.netUDPPortTextField setIntValue: config_GetInt("server-port")]
-//    self.netUDPPortStepper setIntValue: config_GetInt("server-port")]
-//
-//    self.captureModePopup removeAllItems]
-//    self.captureModePopup addItemWithTitle: _NS("Input Devices")]
-//    self.captureModePopup addItemWithTitle: _NS("Screen")]
-//    self.screenFPSLabel.stringValue =  [String stringWithFormat:"%@:",_NS("Frames per Second")]]
-//    self.screenLabel.stringValue =  [String stringWithFormat:"%@:",_NS("Screen")]]
-//    self.screenLeftLabel.stringValue =  [String stringWithFormat:"%@:",_NS("Subscreen left")]]
-//    self.screenTopLabel.stringValue =  [String stringWithFormat:"%@:",_NS("Subscreen top")]]
-//    self.screenWidthLabel.stringValue =  [String stringWithFormat:"%@:",_NS("Subscreen Width")]]
-//    self.screenHeightLabel.stringValue =  [String stringWithFormat:"%@:",_NS("Subscreen Height")]]
-//    self.screenFollowMouseCheckbox setTitle: _NS("Follow the mouse")]
-//    self.screenqtkAudioCheckbox setTitle: _NS("Capture Audio")]
-//
-//    // setup start / stop time fields
-//    self.fileStartTimeTextField setFormatter:[[PositionFormatter alloc] init]]
-//    self.fileStopTimeTextField setFormatter:[[PositionFormatter alloc] init]]
-//
-//    // Auto collapse MRL field
-//    self.mrlViewHeightConstraint.constant = 0
-//
-//    [self updateQTKVideoDevices]
-//    self.qtkVideoDevicePopup removeAllItems]
-//    msg_Dbg(getIntf(), "Found %lu video capture devices", _avvideoDevices.count)
-//
-//    if (self.avvideoDevices.count >= 1) {
-//    if (!self.avCurrentDeviceUID)
-//    _avCurrentDeviceUID = [[[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] uniqueID]
-//    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-//
-//    NSUInteger deviceCount = _avvideoDevices.count
-//    for (int ivideo = 0; ivideo < deviceCount; ivideo++) {
-//    AVCaptureDevice *avDevice = self.avvideoDevices objectAtIndex:ivideo]
-//    // allow same name for multiple times
-//    [self.qtkVideoDevicePopup menu] addItemWithTitle:[avDevice localizedName] action:nil keyEquivalent:""]
-//
-//    if ([[[avDevice uniqueID] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:_avCurrentDeviceUID])
-//    self.qtkVideoDevicePopup selectItemAtIndex:ivideo]
-//    }
-//    } else {
-//    self.qtkVideoDevicePopup addItemWithTitle: _NS("None")]
-//    }
-//
-//    self.qtkAudioDevicePopup removeAllItems]
-//    self.screenqtkAudioPopup removeAllItems]
-//
-//    [self updateQTKAudioDevices]
-//    msg_Dbg(getIntf(), "Found %lu audio capture devices", _avaudioDevices.count)
-//
-//    if (self.avaudioDevices.count >= 1) {
-//    if (!self.avCurrentAudioDeviceUID)
-//    _avCurrentAudioDeviceUID = [[[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] uniqueID]
-//    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-//
-//    NSUInteger deviceCount = _avaudioDevices.count
-//    for (int iaudio = 0; iaudio < deviceCount; iaudio++) {
-//    AVCaptureDevice *avAudioDevice = self.avaudioDevices objectAtIndex:iaudio]
-//
-//    // allow same name for multiple times
-//    String *localizedName = [avAudioDevice localizedName]
-//    [self.qtkAudioDevicePopup menu] addItemWithTitle:localizedName action:nil keyEquivalent:""]
-//    [self.screenqtkAudioPopup menu] addItemWithTitle:localizedName action:nil keyEquivalent:""]
-//
-//    if ([[[avAudioDevice uniqueID] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:_avCurrentAudioDeviceUID]) {
-//    self.qtkAudioDevicePopup selectItemAtIndex:iaudio]
-//    self.screenqtkAudioPopup selectItemAtIndex:iaudio]
-//    }
-//    }
-//    } else {
-//    self.qtkAudioDevicePopup addItemWithTitle: _NS("None")]
-//    self.screenqtkAudioPopup addItemWithTitle: _NS("None")]
-//    }
-//
-//    [self setSubPanel]
-//
-//    [[NSNotificationCenter defaultCenter] addObserver: self
-//    selector: #selector(openNetInfoChanged:)
-//    name: NSControlTextDidChangeNotification
-//    object: _netUDPPortTextField]
-//    [[NSNotificationCenter defaultCenter] addObserver: self
-//    selector: #selector(openNetInfoChanged:)
-//    name: NSControlTextDidChangeNotification
-//    object: _netUDPMAddressTextField]
-//    [[NSNotificationCenter defaultCenter] addObserver: self
-//    selector: #selector(openNetInfoChanged:)
-//    name: NSControlTextDidChangeNotification
-//    object: _netUDPMPortTextField]
-//    [[NSNotificationCenter defaultCenter] addObserver: self
-//    selector: #selector(openNetInfoChanged:)
-//    name: NSControlTextDidChangeNotification
-//    object: _netHTTPURLTextField]
-//
-//    [[NSNotificationCenter defaultCenter] addObserver: self
-//    selector: #selector(screenFPSfieldChanged:)
-//    name: NSControlTextDidChangeNotification
-//    object: _screenFPSTextField]
-//
-//    /* register clicks on text fields */
-//    [[NSNotificationCenter defaultCenter] addObserver: self
-//    selector: #selector(textFieldWasClicked:)
-//    name: VLCOpenTextFieldWasClicked
-//    object: nil]
-//
-//    /* we want to be notified about removed or added media */
-//    _allMediaDevices = [[NSMutableArray alloc] init]
-//    _specialMediaFolders = [[NSMutableArray alloc] init]
-//    _displayInfos = [[NSMutableArray alloc] init]
-//    NSWorkspace *sharedWorkspace = NSWorkspace.shared]
-//    [[sharedWorkspace notificationCenter] addObserver:self selector:#selector(scanOpticalMedia:) name:NSWorkspaceDidMountNotification object:nil]
-//    [[sharedWorkspace notificationCenter] addObserver:self selector:#selector(scanOpticalMedia:) name:NSWorkspaceDidUnmountNotification object:nil]
-//
-//    [self qtkToggleUIElements:nil]
-//    [self scanOpticalMedia:nil]
-//
-//    [self.MRL = ""]
-//    }
-//
+    override func windowDidLoad() {
+        _output = VLCOutput()
+
+        self.window.collectionBehavior = NSWindow.CollectionBehavior.fullScreenAuxiliary
+
+        self.window.title = "Open Source"
+        self.mrlButtonLabel.title = "Media Resource Locator (MRL)"
+
+        self.okButton.title = "Open"
+        self.cancelButton.title = "Cancel"
+
+        self.outputCheckbox.title = "Stream output:"
+        self.outputSettingsButton.title = "Settings..."
+
+//        self.tabView.accessibilitySetOverrideValue = "Choose media input type" forAttribute:NSAccessibilityDescriptionAttribute]
+        self.tabView.tabViewItem(at: 0).label = "File"
+        self.tabView.tabViewItem(at: 1).label = "Disc"
+        self.tabView.tabViewItem(at: 2).label = "Network"
+        self.tabView.tabViewItem(at: 3).label = "Capture"
+        self.fileNameLabel.stringValue = ""
+        self.fileNameStubLabel.stringValue =  "Choose a file"
+        self.fileIconWell.image = NSImage(named: "generic")
+        self.fileBrowseButton.title = "Browse..."
+//        self.fileBrowseButton.cell accessibilitySetOverrideValue:_NS("Select a file for playback") forAttribute:NSAccessibilityDescriptionAttribute]
+        self.fileTreatAsPipeButton.title = "Treat as a pipe rather than as a file"
+        self.fileTreatAsPipeButton.isHidden = false
+        self.fileSlaveCheckbox.title = "Play another media synchronously"
+        self.fileSelectSlaveButton.title = "Choose..."
+//        [self.fileBrowseButton cell accessibilitySetOverrideValue:_NS("Select another file to play in sync with the previously selected file") forAttribute:NSAccessibilityDescriptionAttribute]
+        self.fileSlaveFilenameLabel.stringValue =  ""
+        self.fileSlaveIconWell.image = nil
+        self.fileSubtitlesFilenameLabel.stringValue =  ""
+        self.fileSubtitlesIconWell.image = nil
+        self.fileCustomTimingCheckbox.title = "Custom playback"
+        self.fileStartTimeLabel.stringValue = "Start time"
+        self.fileStartTimeTextField.stringValue =  ""
+        self.fileStopTimeLabel.stringValue =  "Stop time"
+        self.fileStopTimeTextField.stringValue =  ""
+
+        self.netUDPPortLabel.stringValue = "Port"
+        self.netUDPMAddressLabel.stringValue =  "IP Address"
+        self.netUDPMPortLabel.stringValue = "Port"
+        self.netHTTPURLLabel.stringValue = "URL"
+        self.netHelpLabel.stringValue = "To Open a usual network stream (HTTP, RTSP, RTMP, MMS, FTP, etc.), just enter the URL in the field above. If you want to open a RTP or UDP stream, press the button below."
+        self.netHelpUDPLabel.stringValue = "If you want to open a multicast stream, enter the respective IP address given by the stream provider. In unicast mode, VLC will use your machine's IP automatically.\n\nTo open a stream using a different protocol, just press Cancel to close this sheet."
+//        self.netHTTPURLTextField accessibilitySetOverrideValue:"Enter a stream URL here. To open RTP or UDP streams, use the respective button below.") forAttribute:NSAccessibilityDescriptionAttribute
+        self.netUDPCancelButton.title = "Cancel"
+        self.netUDPOKButton.title = "Open"
+        self.netOpenUDPButton.title = "Open RTP/UDP Stream"
+        self.netUDPModeLabel.stringValue = "Mode"
+        self.netUDPProtocolLabel.stringValue = "Protocol"
+        self.netUDPAddressLabel.stringValue = "Address"
+
+        self.netModeMatrix.cell(atRow:0, column:0)?.title = "Unicast"
+        self.netModeMatrix.cell(atRow:1, column:0)?.title = "Multicast"
+
+        self.netUDPPortTextField.intValue = config_GetInt("server-port")
+        self.netUDPPortStepper.intValue = config_GetInt("server-port")
+
+        self.captureModePopup.removeAllItems()
+        self.captureModePopup.addItem(withTitle: "Input Devices")
+        self.captureModePopup.addItem(withTitle: "Screen")
+        self.screenFPSLabel.stringValue = "Frames per Second:"
+        self.screenLabel.stringValue = "Screen"
+        self.screenLeftLabel.stringValue = "Subscreen left:"
+        self.screenTopLabel.stringValue = "Subscreen top:"
+        self.screenWidthLabel.stringValue = "Subscreen Width:"
+        self.screenHeightLabel.stringValue = "Subscreen Height:"
+        self.screenFollowMouseCheckbox.title = "Follow the mouse"
+        self.screenqtkAudioCheckbox.title = "Capture Audio"
+
+        #warning QTKit stuff is deprecated and broken!
+        /* The QTKit audio capture does not work anymore since 3.x, it has to be
+         * replaced with AVFoundation audio capture stuff and things have to be
+         * changed here to not try to use the qtkit module anymore.
+         */
+
+        // setup start / stop time fields
+        self.fileStartTimeTextField.formatter = PositionFormatter()
+        self.fileStopTimeTextField.formatter = PositionFormatter()
+
+        // Auto collapse MRL field
+        self.mrlViewHeightConstraint.constant = 0
+
+        [self updateQTKVideoDevices]
+        self.qtkVideoDevicePopup removeAllItems]
+        msg_Dbg(getIntf(), "Found %lu video capture devices", _avvideoDevices.count)
+
+        if (self.avvideoDevices.count >= 1) {
+        if (!self.avCurrentDeviceUID)
+        _avCurrentDeviceUID = [[[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] uniqueID]
+        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+
+        NSUInteger deviceCount = _avvideoDevices.count
+        for (int ivideo = 0; ivideo < deviceCount; ivideo++) {
+        AVCaptureDevice *avDevice = self.avvideoDevices objectAtIndex:ivideo]
+        // allow same name for multiple times
+        [self.qtkVideoDevicePopup menu] addItemWithTitle:[avDevice localizedName] action:nil keyEquivalent:""]
+
+        if ([[[avDevice uniqueID] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:_avCurrentDeviceUID])
+        self.qtkVideoDevicePopup selectItemAtIndex:ivideo]
+        }
+        } else {
+        self.qtkVideoDevicePopup addItemWithTitle: _NS("None")]
+        }
+
+        self.qtkAudioDevicePopup removeAllItems]
+        self.screenqtkAudioPopup removeAllItems]
+
+        [self updateQTKAudioDevices]
+        msg_Dbg(getIntf(), "Found %lu audio capture devices", _avaudioDevices.count)
+
+        if (self.avaudioDevices.count >= 1) {
+        if (!self.avCurrentAudioDeviceUID)
+        _avCurrentAudioDeviceUID = [[[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] uniqueID]
+        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+
+        NSUInteger deviceCount = _avaudioDevices.count
+        for (int iaudio = 0; iaudio < deviceCount; iaudio++) {
+        AVCaptureDevice *avAudioDevice = self.avaudioDevices objectAtIndex:iaudio]
+
+        // allow same name for multiple times
+        String *localizedName = [avAudioDevice localizedName]
+        [self.qtkAudioDevicePopup menu] addItemWithTitle:localizedName action:nil keyEquivalent:""]
+        [self.screenqtkAudioPopup menu] addItemWithTitle:localizedName action:nil keyEquivalent:""]
+
+        if ([[[avAudioDevice uniqueID] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:_avCurrentAudioDeviceUID]) {
+        self.qtkAudioDevicePopup selectItemAtIndex:iaudio]
+        self.screenqtkAudioPopup selectItemAtIndex:iaudio]
+        }
+        }
+        } else {
+        self.qtkAudioDevicePopup addItemWithTitle: _NS("None")]
+        self.screenqtkAudioPopup addItemWithTitle: _NS("None")]
+        }
+
+        [self setSubPanel]
+
+        [[NSNotificationCenter defaultCenter] addObserver: self
+        selector: #selector(openNetInfoChanged:)
+        name: NSControlTextDidChangeNotification
+        object: _netUDPPortTextField]
+        [[NSNotificationCenter defaultCenter] addObserver: self
+        selector: #selector(openNetInfoChanged:)
+        name: NSControlTextDidChangeNotification
+        object: _netUDPMAddressTextField]
+        [[NSNotificationCenter defaultCenter] addObserver: self
+        selector: #selector(openNetInfoChanged:)
+        name: NSControlTextDidChangeNotification
+        object: _netUDPMPortTextField]
+        [[NSNotificationCenter defaultCenter] addObserver: self
+        selector: #selector(openNetInfoChanged:)
+        name: NSControlTextDidChangeNotification
+        object: _netHTTPURLTextField]
+
+        [[NSNotificationCenter defaultCenter] addObserver: self
+        selector: #selector(screenFPSfieldChanged:)
+        name: NSControlTextDidChangeNotification
+        object: _screenFPSTextField]
+
+        /* register clicks on text fields */
+        [[NSNotificationCenter defaultCenter] addObserver: self
+        selector: #selector(textFieldWasClicked:)
+        name: VLCOpenTextFieldWasClicked
+        object: nil]
+
+        /* we want to be notified about removed or added media */
+        _allMediaDevices = [[NSMutableArray alloc] init]
+        _specialMediaFolders = [[NSMutableArray alloc] init]
+        _displayInfos = [[NSMutableArray alloc] init]
+        NSWorkspace *sharedWorkspace = NSWorkspace.shared]
+        [[sharedWorkspace notificationCenter] addObserver:self selector:#selector(scanOpticalMedia:) name:NSWorkspaceDidMountNotification object:nil]
+        [[sharedWorkspace notificationCenter] addObserver:self selector:#selector(scanOpticalMedia:) name:NSWorkspaceDidUnmountNotification object:nil]
+
+        [self qtkToggleUIElements:nil]
+        [self scanOpticalMedia:nil]
+
+        [self.MRL = ""]
+    }
+
 //    func.MRL =(String *)newMRL -> void
 //    {
 //    if (!newMRL)
@@ -963,7 +901,6 @@ class VLCOpenWindowController : NSWindowController, NSTabViewDelegate {
 //    func updateMediaSelector:(NSNumber *)selection -> void
 //    {
 //    self.allMediaDevices removeAllObjects]
-//    self.discSelectorPopup removeAllItems]
 //
 //    @synchronized (self) {
 //    self.allMediaDevices addObjectsFromArray:_opticalDevices]
@@ -974,17 +911,9 @@ class VLCOpenWindowController : NSWindowController, NSTabViewDelegate {
 //    if (count > 0) {
 //    for (NSUInteger i = 0; i < count ; i++) {
 //    NSDictionary *o_dict = self.allMediaDevices objectAtIndex:i]
-//    _discSelectorPopup.addItemWithTitle: [[NSFileManager defaultManager.displayNameAtPath:[o_dict objectForKey:"path"]]]
 //    }
 //
-//    if (self.discSelectorPopup numberOfItems] <= 1)
-//    self.discSelectorPopup.isHidden = true]
-//    else
-//    self.discSelectorPopup.isHidden = false]
 //
-//    // select newly added media folder
-//    if (selection && [selection boolValue])
-//    self.discSelectorPopup selectItemAtIndex: [self.discSelectorPopup itemArray] count] - 1]
 //
 //    // only trigger MRL update if the tab view is active
 //    if ([[self.tabView selectedTabViewItem] identifier] isEqualToString:kDiscTabViewId])
@@ -1432,26 +1361,17 @@ class VLCOpenWindowController : NSWindowController, NSTabViewDelegate {
 }
 
 
-//String *const VLCOpenTextFieldWasClicked = "VLCOpenTextFieldWasClicked"
-//
-//@interface VLCOpenTextField : NSTextField
-//func mouseDown:(NSEvent *)theEvent -> void
-//@end
-//
-//@implementation VLCOpenTextField
-//
-//func mouseDown:(NSEvent *)theEvent -> void
-//{
-//    [[NSNotificationCenter defaultCenter] postNotificationName: VLCOpenTextFieldWasClicked
-//        object: self]
-//    [super mouseDown: theEvent]
-//}
-//
-//@end
-//
-//struct display_info_t
-//{
-//    CGRect rect
-//    CGDirectDisplayID id
-//}
+fileprivate let VLCOpenTextFieldWasClicked = Notification.Name("VLCOpenTextFieldWasClicked")
+
+class VLCOpenTextField : NSTextField {
+    override func mouseDown(with event: NSEvent) {
+        NotificationCenter.default.post(name: VLCOpenTextFieldWasClicked, object: self)
+        super.mouseDown(with: event)
+    }
+}
+
+struct display_info_t {
+    var rect: CGRect
+    var id: CGDirectDisplayID
+}
 

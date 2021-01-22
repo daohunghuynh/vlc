@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="17F77" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="VLCOpenWindowController">
@@ -11,40 +11,6 @@
                 <outlet property="cancelButton" destination="641" id="QPb-Fs-uG1"/>
                 <outlet property="captureModePopup" destination="2327" id="v7x-B4-tJK"/>
                 <outlet property="captureTabView" destination="H7H-IP-QHV" id="PzS-WR-O9S"/>
-                <outlet property="discAudioCDLabel" destination="3084" id="qIb-o0-AKx"/>
-                <outlet property="discAudioCDTrackCountLabel" destination="3104" id="oKf-yd-oZG"/>
-                <outlet property="discAudioCDVideoTSButton" destination="3081" id="MRT-9B-eSa"/>
-                <outlet property="discAudioCDView" destination="3080" id="x3q-0V-eqv"/>
-                <outlet property="discBDLabel" destination="3291" id="JLB-jY-BDh"/>
-                <outlet property="discBDVideoTSButton" destination="3293" id="8A9-id-i6v"/>
-                <outlet property="discBDView" destination="3289" id="9Ga-GL-AA9"/>
-                <outlet property="discDVDDisableMenusButton" destination="3183" id="xen-y0-De2"/>
-                <outlet property="discDVDLabel" destination="3110" id="ER7-GJ-Su9"/>
-                <outlet property="discDVDVideoTSButton" destination="3108" id="XSM-up-Nk9"/>
-                <outlet property="discDVDView" destination="3106" id="bij-VT-fAD"/>
-                <outlet property="discDVDwomenusChapterLabel" destination="3148" id="c1g-Zt-Bkx"/>
-                <outlet property="discDVDwomenusChapterStepper" destination="3153" id="I28-yg-XlN"/>
-                <outlet property="discDVDwomenusChapterTextField" destination="3151" id="66f-Yv-jW0"/>
-                <outlet property="discDVDwomenusEnableMenusButton" destination="3192" id="Sow-Rz-dKM"/>
-                <outlet property="discDVDwomenusLabel" destination="3193" id="bQ4-MA-QPp"/>
-                <outlet property="discDVDwomenusTitleLabel" destination="3149" id="XdD-jF-Iho"/>
-                <outlet property="discDVDwomenusTitleStepper" destination="3152" id="V8i-WF-bKh"/>
-                <outlet property="discDVDwomenusTitleTextField" destination="3150" id="qEs-2h-iVe"/>
-                <outlet property="discDVDwomenusVideoTSButton" destination="3186" id="HqQ-By-sdI"/>
-                <outlet property="discDVDwomenusView" destination="3119" id="GT4-Q2-UEQ"/>
-                <outlet property="discNoDiscLabel" destination="3094" id="nJX-iG-87a"/>
-                <outlet property="discNoDiscVideoTSButton" destination="3096" id="XTT-fQ-Pbi"/>
-                <outlet property="discNoDiscView" destination="3093" id="U77-Gf-uM4"/>
-                <outlet property="discSelectorPopup" destination="3166" id="zcc-5p-aZQ"/>
-                <outlet property="discVCDChapterLabel" destination="3243" id="5LT-gi-4u8"/>
-                <outlet property="discVCDChapterStepper" destination="3238" id="dY9-Vh-bgH"/>
-                <outlet property="discVCDChapterTextField" destination="3240" id="d2f-PQ-Lqu"/>
-                <outlet property="discVCDLabel" destination="3234" id="uHN-5Y-069"/>
-                <outlet property="discVCDTitleLabel" destination="3242" id="QeV-HV-T42"/>
-                <outlet property="discVCDTitleStepper" destination="3239" id="zZ5-kQ-2G6"/>
-                <outlet property="discVCDTitleTextField" destination="3241" id="zTk-hy-VrR"/>
-                <outlet property="discVCDVideoTSButton" destination="3237" id="0Uh-rC-7Ho"/>
-                <outlet property="discVCDView" destination="3233" id="Sv2-dO-K19"/>
                 <outlet property="fileBrowseButton" destination="686" id="kVF-QN-bSe"/>
                 <outlet property="fileCustomTimingCheckbox" destination="3485" id="cfA-oe-tE9"/>
                 <outlet property="fileIconWell" destination="3326" id="vKh-ut-K7F"/>
@@ -146,7 +112,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="162" y="354" width="602" height="426"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="530" height="107"/>
             <view key="contentView" id="637">
                 <rect key="frame" x="0.0" y="0.0" width="602" height="426"/>
@@ -170,10 +136,10 @@
                         <tabViewItems>
                             <tabViewItem label="File" identifier="file" id="680">
                                 <view key="view" id="681">
-                                    <rect key="frame" x="10" y="33" width="528" height="232"/>
+                                    <rect key="frame" x="10" y="33" width="556" height="232"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <box autoresizesSubviews="NO" title="Box" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="3487">
+                                        <box autoresizesSubviews="NO" borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="3487">
                                             <rect key="frame" x="1" y="-1" width="554" height="47"/>
                                             <view key="contentView" id="7Lj-Zt-bjd">
                                                 <rect key="frame" x="1" y="1" width="552" height="45"/>
@@ -186,7 +152,7 @@
                                                         </constraints>
                                                         <textFieldCell key="cell" controlSize="small" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3480">
                                                             <font key="font" metaFont="smallSystem"/>
-                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
@@ -205,7 +171,7 @@
                                                         </constraints>
                                                         <textFieldCell key="cell" controlSize="small" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3474">
                                                             <font key="font" metaFont="smallSystem"/>
-                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
@@ -405,40 +371,6 @@
                                     </constraints>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Disc" identifier="disc" id="679">
-                                <view key="view" wantsLayer="YES" id="677">
-                                    <rect key="frame" x="10" y="33" width="528" height="232"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3166">
-                                            <rect key="frame" x="163" y="205" width="203" height="26"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="198" id="dwD-kf-qo1"/>
-                                            </constraints>
-                                            <popUpButtonCell key="cell" type="push" title="GANGS_OF_NEW_YORK" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="3169" id="3167">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="3168">
-                                                    <items>
-                                                        <menuItem title="GANGS_OF_NEW_YORK" state="on" id="3169"/>
-                                                        <menuItem title="Audio CD" id="3170"/>
-                                                        <menuItem title="Item 3" id="3171"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="discSelectorChanged:" target="-2" id="lMm-4A-mou"/>
-                                            </connections>
-                                        </popUpButton>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3166" secondAttribute="trailing" constant="20" symbolic="YES" id="2kq-3I-P07"/>
-                                        <constraint firstItem="3166" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="677" secondAttribute="leading" constant="20" symbolic="YES" id="QpQ-3W-HHk"/>
-                                        <constraint firstItem="3166" firstAttribute="centerX" secondItem="677" secondAttribute="centerX" id="Sfn-Dr-Ef5"/>
-                                        <constraint firstItem="3166" firstAttribute="top" secondItem="677" secondAttribute="top" constant="3" id="q4w-VX-914"/>
-                                    </constraints>
-                                </view>
-                            </tabViewItem>
                             <tabViewItem label="Network" identifier="network" id="682">
                                 <view key="view" id="683">
                                     <rect key="frame" x="10" y="33" width="556" height="232"/>
@@ -456,7 +388,7 @@
                                             <rect key="frame" x="52" y="190" width="484" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="2886">
                                                 <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
@@ -665,7 +597,7 @@ Gw
                                                                                 <real key="maximum" value="60"/>
                                                                             </numberFormatter>
                                                                             <font key="font" metaFont="smallSystem"/>
-                                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                         <connections>
@@ -692,7 +624,7 @@ Gw
                                                                         <rect key="frame" x="140" y="107" width="43" height="19"/>
                                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="0" drawsBackground="YES" id="2963">
                                                                             <font key="font" metaFont="smallSystem"/>
-                                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                         <connections>
@@ -712,7 +644,7 @@ Gw
                                                                         <rect key="frame" x="140" y="78" width="43" height="19"/>
                                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="0" drawsBackground="YES" id="2965">
                                                                             <font key="font" metaFont="smallSystem"/>
-                                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                         <connections>
@@ -732,7 +664,7 @@ Gw
                                                                         <rect key="frame" x="322" y="107" width="43" height="19"/>
                                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="0" drawsBackground="YES" id="2967">
                                                                             <font key="font" metaFont="smallSystem"/>
-                                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                         <connections>
@@ -752,7 +684,7 @@ Gw
                                                                         <rect key="frame" x="322" y="78" width="43" height="19"/>
                                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="0" drawsBackground="YES" id="2969">
                                                                             <font key="font" metaFont="smallSystem"/>
-                                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                         <connections>
@@ -964,7 +896,7 @@ Gw
                     </tabView>
                     <button identifier="mrl button" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2836">
                         <rect key="frame" x="20" y="131" width="13" height="13"/>
-                        <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="BAA5A74C-DD04-40F0-86F1-BFC44B673E07" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="2893">
+                        <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="buttonCell:2893:image" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="2893">
                             <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -1095,7 +1027,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="37" y="107" width="531" height="324"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="1264">
                 <rect key="frame" x="0.0" y="0.0" width="531" height="324"/>
@@ -1133,7 +1065,7 @@ Gw
                                             <real key="maximum" value="100"/>
                                         </numberFormatter>
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
@@ -1170,7 +1102,7 @@ Gw
                                             <real key="maximum" value="10000"/>
                                         </numberFormatter>
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
@@ -1386,7 +1318,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="246" y="437" width="696" height="250"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="2793">
                 <rect key="frame" x="0.0" y="0.0" width="696" height="250"/>
@@ -1444,7 +1376,7 @@ DQ
                         </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1234" drawsBackground="YES" id="2978">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
@@ -1465,7 +1397,7 @@ DQ
                         </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="2980">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
@@ -1487,7 +1419,7 @@ DQ
                         </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1234" drawsBackground="YES" id="2982">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
@@ -1631,408 +1563,10 @@ To open a stream using a different protocol, just press Cancel to close this she
             </view>
             <point key="canvasLocation" x="561" y="757"/>
         </window>
-        <customView id="3080" userLabel="Audio CD">
-            <rect key="frame" x="0.0" y="0.0" width="295" height="205"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <subviews>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3081">
-                    <rect key="frame" x="31" y="85" width="233" height="32"/>
-                    <buttonCell key="cell" type="push" title="Open VIDEO_TS or BDMV folder" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="3088">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="openSpecialMediaFolder:" target="-2" id="PGL-xT-u1u"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3084">
-                    <rect key="frame" x="114" y="172" width="68" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Audio CD" usesSingleLineMode="YES" id="3085">
-                        <font key="font" metaFont="systemBold"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3104">
-                    <rect key="frame" x="118" y="156" width="59" height="14"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="%i tracks " usesSingleLineMode="YES" id="3105">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-            </subviews>
-            <constraints>
-                <constraint firstItem="3104" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3080" secondAttribute="leading" constant="4" id="3Fd-lN-Y0S"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3104" secondAttribute="trailing" constant="4" id="KYv-TV-fTW"/>
-                <constraint firstItem="3104" firstAttribute="top" secondItem="3084" secondAttribute="bottom" constant="2" id="Qt0-PC-gwn"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3084" secondAttribute="trailing" constant="4" id="bn8-VG-1XZ"/>
-                <constraint firstItem="3081" firstAttribute="centerX" secondItem="3080" secondAttribute="centerX" id="c2X-6g-Tir"/>
-                <constraint firstItem="3081" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3080" secondAttribute="leading" constant="4" id="eA7-UJ-6U1"/>
-                <constraint firstItem="3084" firstAttribute="top" secondItem="3080" secondAttribute="top" constant="16" id="gfu-8a-aBZ"/>
-                <constraint firstItem="3104" firstAttribute="centerX" secondItem="3080" secondAttribute="centerX" id="qjy-hP-dzb"/>
-                <constraint firstItem="3084" firstAttribute="centerX" secondItem="3080" secondAttribute="centerX" id="taA-Sz-1MA"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3081" secondAttribute="trailing" constant="4" id="vYF-nd-fOx"/>
-                <constraint firstItem="3081" firstAttribute="centerY" secondItem="3080" secondAttribute="centerY" id="w3u-hg-9Qj"/>
-                <constraint firstItem="3084" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3080" secondAttribute="leading" constant="4" id="yk5-C7-pE9"/>
-            </constraints>
-        </customView>
-        <customView id="3093" userLabel="No Disc">
-            <rect key="frame" x="0.0" y="0.0" width="295" height="205"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <subviews>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3096">
-                    <rect key="frame" x="31" y="85" width="233" height="32"/>
-                    <buttonCell key="cell" type="push" title="Open VIDEO_TS or BDMV folder" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="3099">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="openSpecialMediaFolder:" target="-2" id="JMW-uG-By3"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3094">
-                    <rect key="frame" x="104" y="172" width="88" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Insert a disc" usesSingleLineMode="YES" id="3101">
-                        <font key="font" metaFont="systemBold"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-            </subviews>
-            <constraints>
-                <constraint firstItem="3096" firstAttribute="centerY" secondItem="3093" secondAttribute="centerY" id="4jD-GY-6LU"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3094" secondAttribute="trailing" constant="4" id="82x-bi-unO"/>
-                <constraint firstItem="3094" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3093" secondAttribute="leading" constant="4" id="BAd-sk-t5k"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3096" secondAttribute="trailing" constant="4" id="Rgz-2t-55h"/>
-                <constraint firstItem="3096" firstAttribute="centerX" secondItem="3093" secondAttribute="centerX" id="WQJ-KC-lOI"/>
-                <constraint firstItem="3094" firstAttribute="centerX" secondItem="3093" secondAttribute="centerX" id="gRC-PC-Rq7"/>
-                <constraint firstItem="3094" firstAttribute="top" secondItem="3093" secondAttribute="top" constant="16" id="kA8-Hh-oy2"/>
-                <constraint firstItem="3096" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3093" secondAttribute="leading" constant="4" id="oZu-DO-mse"/>
-            </constraints>
-        </customView>
-        <customView id="3106" userLabel="DVD + menus">
-            <rect key="frame" x="0.0" y="0.0" width="295" height="205"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <subviews>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3108">
-                    <rect key="frame" x="31" y="85" width="233" height="32"/>
-                    <buttonCell key="cell" type="push" title="Open VIDEO_TS or BDMV folder" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" inset="2" id="3113">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="openSpecialMediaFolder:" target="-2" id="01G-06-mbK"/>
-                    </connections>
-                </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3183">
-                    <rect key="frame" x="83" y="140" width="130" height="28"/>
-                    <buttonCell key="cell" type="push" title="Disable DVD menus" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="3184">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="dvdreadOptionChanged:" target="-2" id="1xF-jH-wsI"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3110">
-                    <rect key="frame" x="109" y="172" width="78" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="DVD_TITLE" usesSingleLineMode="YES" id="3111">
-                        <font key="font" metaFont="systemBold"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-            </subviews>
-            <constraints>
-                <constraint firstItem="3110" firstAttribute="centerX" secondItem="3183" secondAttribute="centerX" id="1K1-NS-PlK"/>
-                <constraint firstItem="3183" firstAttribute="centerX" secondItem="3108" secondAttribute="centerX" id="3Bf-Rp-wPu"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3183" secondAttribute="trailing" constant="4" id="8Eg-Cg-9Wp"/>
-                <constraint firstItem="3183" firstAttribute="top" secondItem="3110" secondAttribute="bottom" constant="8" id="EOT-KV-aMZ"/>
-                <constraint firstItem="3108" firstAttribute="centerX" secondItem="3106" secondAttribute="centerX" id="Uew-7s-MXE"/>
-                <constraint firstItem="3108" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3106" secondAttribute="leading" constant="4" id="ZjW-Tn-E31"/>
-                <constraint firstItem="3108" firstAttribute="centerY" secondItem="3106" secondAttribute="centerY" id="ba9-sn-6Uz"/>
-                <constraint firstItem="3183" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3106" secondAttribute="leading" constant="4" id="dxK-cq-acX"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3108" secondAttribute="trailing" constant="4" id="hUR-cg-6P9"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3110" secondAttribute="trailing" constant="4" id="uYq-fT-nAs"/>
-                <constraint firstItem="3108" firstAttribute="top" secondItem="3183" secondAttribute="bottom" constant="33" id="wON-yL-Z6w"/>
-                <constraint firstItem="3110" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3106" secondAttribute="leading" constant="4" id="wS7-nw-t8F"/>
-            </constraints>
-        </customView>
-        <customView id="3119" userLabel="DVD /o menus">
-            <rect key="frame" x="0.0" y="0.0" width="295" height="205"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <subviews>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3148">
-                    <rect key="frame" x="54" y="89" width="47" height="14"/>
-                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Chapter" usesSingleLineMode="YES" id="3159">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3149">
-                    <rect key="frame" x="73" y="119" width="28" height="14"/>
-                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Title" usesSingleLineMode="YES" id="3158">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3150">
-                    <rect key="frame" x="106" y="117" width="152" height="19"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="152" id="P9Y-Jr-mkf"/>
-                    </constraints>
-                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1" drawsBackground="YES" id="3157">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <action selector="dvdreadOptionChanged:" target="-2" id="kcG-pd-mkp"/>
-                    </connections>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3151">
-                    <rect key="frame" x="106" y="87" width="152" height="19"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="152" id="SfY-bP-G6B"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="152" id="WNu-Q2-wZw"/>
-                    </constraints>
-                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1" drawsBackground="YES" id="3156">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <action selector="dvdreadOptionChanged:" target="-2" id="M9i-A9-ceM"/>
-                    </connections>
-                </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3152">
-                    <rect key="frame" x="263" y="115" width="15" height="22"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="999" doubleValue="1" valueWraps="YES" id="3155">
-                        <font key="font" metaFont="smallSystem"/>
-                    </stepperCell>
-                    <connections>
-                        <action selector="dvdreadOptionChanged:" target="-2" id="6lt-ib-YL6"/>
-                    </connections>
-                </stepper>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="3153">
-                    <rect key="frame" x="263" y="85" width="15" height="22"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" tag="1" minValue="1" maxValue="999" doubleValue="1" valueWraps="YES" id="3154">
-                        <font key="font" metaFont="smallSystem"/>
-                    </stepperCell>
-                    <connections>
-                        <action selector="dvdreadOptionChanged:" target="-2" id="V7m-Hb-Gq3"/>
-                    </connections>
-                </stepper>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3186">
-                    <rect key="frame" x="31" y="44" width="233" height="32"/>
-                    <buttonCell key="cell" type="push" title="Open VIDEO_TS or BDMV folder" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="3189">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="openSpecialMediaFolder:" target="-2" id="9tN-Dx-V5C"/>
-                    </connections>
-                </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3192">
-                    <rect key="frame" x="85" y="140" width="126" height="28"/>
-                    <buttonCell key="cell" type="push" title="Enable DVD menus" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="3195">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="dvdreadOptionChanged:" target="-2" id="QNN-GH-YXF"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3193">
-                    <rect key="frame" x="109" y="172" width="78" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="DVD_TITLE" usesSingleLineMode="YES" id="3194">
-                        <font key="font" metaFont="systemBold"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-            </subviews>
-            <constraints>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3193" secondAttribute="trailing" constant="4" id="2EK-ny-RJI"/>
-                <constraint firstItem="3151" firstAttribute="centerY" secondItem="3148" secondAttribute="centerY" id="3XB-D8-OeA"/>
-                <constraint firstItem="3192" firstAttribute="top" secondItem="3193" secondAttribute="bottom" constant="8" id="6O8-Kc-BGY"/>
-                <constraint firstItem="3193" firstAttribute="top" secondItem="3119" secondAttribute="top" constant="16" id="93m-zH-2M5"/>
-                <constraint firstItem="3193" firstAttribute="centerX" secondItem="3119" secondAttribute="centerX" id="9Ol-ro-YBy"/>
-                <constraint firstItem="3151" firstAttribute="top" secondItem="3150" secondAttribute="bottom" constant="11" id="CHF-lh-tTW"/>
-                <constraint firstItem="3193" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3119" secondAttribute="leading" constant="4" id="CjT-PZ-BnI"/>
-                <constraint firstItem="3151" firstAttribute="trailing" secondItem="3186" secondAttribute="trailing" id="NNR-va-gpq"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3192" secondAttribute="trailing" constant="4" id="PJO-Sf-24g"/>
-                <constraint firstItem="3186" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3119" secondAttribute="leading" constant="4" id="Rvj-2U-ZNv"/>
-                <constraint firstItem="3150" firstAttribute="centerY" secondItem="3152" secondAttribute="centerY" id="TeW-C9-mTg"/>
-                <constraint firstItem="3150" firstAttribute="leading" secondItem="3149" secondAttribute="trailing" constant="7" id="Zck-y3-zd0"/>
-                <constraint firstItem="3151" firstAttribute="centerY" secondItem="3153" secondAttribute="centerY" id="d0F-Hr-BmI"/>
-                <constraint firstItem="3150" firstAttribute="top" secondItem="3192" secondAttribute="bottom" constant="10" id="eTn-eO-aoS"/>
-                <constraint firstItem="3153" firstAttribute="leading" secondItem="3151" secondAttribute="trailing" constant="7" id="egs-v9-ldX"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3186" secondAttribute="trailing" constant="4" id="eoz-er-0ml"/>
-                <constraint firstItem="3186" firstAttribute="centerX" secondItem="3119" secondAttribute="centerX" id="hMN-02-eZL"/>
-                <constraint firstItem="3192" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3119" secondAttribute="leading" constant="4" id="kFY-Bg-Ia2"/>
-                <constraint firstItem="3151" firstAttribute="leading" secondItem="3148" secondAttribute="trailing" constant="7" id="lRx-xr-Xho"/>
-                <constraint firstItem="3148" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3119" secondAttribute="leading" constant="4" id="lmL-oI-Sxl"/>
-                <constraint firstItem="3149" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3119" secondAttribute="leading" constant="4" id="mp4-Lq-hIy"/>
-                <constraint firstItem="3150" firstAttribute="centerY" secondItem="3149" secondAttribute="centerY" id="pqg-Oe-QSU"/>
-                <constraint firstItem="3152" firstAttribute="leading" secondItem="3150" secondAttribute="trailing" constant="7" id="tES-k7-YE5"/>
-                <constraint firstItem="3150" firstAttribute="trailing" secondItem="3151" secondAttribute="trailing" id="tlC-TG-L1E"/>
-                <constraint firstAttribute="bottom" secondItem="3186" secondAttribute="bottom" constant="51" id="vaa-4h-EnC"/>
-                <constraint firstItem="3192" firstAttribute="centerX" secondItem="3119" secondAttribute="centerX" id="vb4-D3-s2N"/>
-            </constraints>
-            <point key="canvasLocation" x="-666.5" y="216.5"/>
-        </customView>
-        <customView id="3233" userLabel="VCD">
-            <rect key="frame" x="0.0" y="0.0" width="295" height="205"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <subviews>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3243">
-                    <rect key="frame" x="54" y="89" width="47" height="14"/>
-                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Chapter" usesSingleLineMode="YES" id="3244">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3242">
-                    <rect key="frame" x="73" y="119" width="28" height="14"/>
-                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Title" usesSingleLineMode="YES" id="3245">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3241">
-                    <rect key="frame" x="106" y="117" width="152" height="19"/>
-                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1" drawsBackground="YES" id="3246">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <action selector="vcdOptionChanged:" target="-2" id="gIZ-a1-Uco"/>
-                    </connections>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3240">
-                    <rect key="frame" x="106" y="87" width="152" height="19"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="152" id="mo1-bK-5VC"/>
-                    </constraints>
-                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1" drawsBackground="YES" id="3247">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <action selector="vcdOptionChanged:" target="-2" id="PJG-S8-A8f"/>
-                    </connections>
-                </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3239">
-                    <rect key="frame" x="263" y="115" width="15" height="22"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="999" doubleValue="1" valueWraps="YES" id="3248">
-                        <font key="font" metaFont="smallSystem"/>
-                    </stepperCell>
-                    <connections>
-                        <action selector="vcdOptionChanged:" target="-2" id="h2b-w4-mzR"/>
-                    </connections>
-                </stepper>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="3238">
-                    <rect key="frame" x="263" y="85" width="15" height="22"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" tag="1" minValue="1" maxValue="999" doubleValue="1" valueWraps="YES" id="3249">
-                        <font key="font" metaFont="smallSystem"/>
-                    </stepperCell>
-                    <connections>
-                        <action selector="vcdOptionChanged:" target="-2" id="osf-DS-7Fj"/>
-                    </connections>
-                </stepper>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3237">
-                    <rect key="frame" x="31" y="44" width="233" height="32"/>
-                    <buttonCell key="cell" type="push" title="Open VIDEO_TS or BDMV folder" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="3250">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="openSpecialMediaFolder:" target="-2" id="2CS-0k-grY"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3234">
-                    <rect key="frame" x="109" y="172" width="78" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="VCD_TITLE" usesSingleLineMode="YES" id="3253">
-                        <font key="font" metaFont="systemBold"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-            </subviews>
-            <constraints>
-                <constraint firstItem="3240" firstAttribute="width" secondItem="3241" secondAttribute="width" id="2yr-4d-YwN"/>
-                <constraint firstItem="3240" firstAttribute="leading" secondItem="3243" secondAttribute="trailing" constant="7" id="31X-oF-cQa"/>
-                <constraint firstItem="3241" firstAttribute="top" secondItem="3234" secondAttribute="bottom" constant="36" id="6Ay-eX-ZU9"/>
-                <constraint firstItem="3234" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3233" secondAttribute="leading" constant="4" id="9JC-jD-MYW"/>
-                <constraint firstItem="3240" firstAttribute="centerY" secondItem="3243" secondAttribute="centerY" id="BLE-ov-1Ef"/>
-                <constraint firstItem="3241" firstAttribute="leading" secondItem="3242" secondAttribute="trailing" constant="7" id="CST-Rg-U58"/>
-                <constraint firstItem="3243" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3233" secondAttribute="leading" constant="4" id="Cgr-lS-iOw"/>
-                <constraint firstItem="3240" firstAttribute="trailing" secondItem="3241" secondAttribute="trailing" id="Efc-AD-y4b"/>
-                <constraint firstItem="3237" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3233" secondAttribute="leading" constant="4" id="Fgu-Ne-Ugp"/>
-                <constraint firstItem="3240" firstAttribute="trailing" secondItem="3237" secondAttribute="trailing" id="IRI-HV-Bny"/>
-                <constraint firstItem="3240" firstAttribute="centerY" secondItem="3238" secondAttribute="centerY" id="O8p-RX-xtJ"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3237" secondAttribute="trailing" constant="4" id="OeK-Zb-eBI"/>
-                <constraint firstItem="3241" firstAttribute="centerY" secondItem="3239" secondAttribute="centerY" id="PnX-17-XgQ"/>
-                <constraint firstItem="3241" firstAttribute="centerY" secondItem="3242" secondAttribute="centerY" id="V9w-mH-GdC"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3234" secondAttribute="trailing" constant="4" id="VVo-ap-OtR"/>
-                <constraint firstItem="3239" firstAttribute="leading" secondItem="3241" secondAttribute="trailing" constant="7" id="ZFy-Nb-0wh"/>
-                <constraint firstItem="3234" firstAttribute="top" secondItem="3233" secondAttribute="top" constant="16" id="bX0-Gr-rPS"/>
-                <constraint firstItem="3240" firstAttribute="trailing" secondItem="3237" secondAttribute="trailing" id="hnR-GK-tg0"/>
-                <constraint firstItem="3237" firstAttribute="top" secondItem="3240" secondAttribute="bottom" constant="15" id="kPl-yw-8kK"/>
-                <constraint firstItem="3240" firstAttribute="top" secondItem="3241" secondAttribute="bottom" constant="11" id="oAJ-LY-BNM"/>
-                <constraint firstItem="3238" firstAttribute="leading" secondItem="3240" secondAttribute="trailing" constant="7" id="orn-3N-Owc"/>
-                <constraint firstItem="3237" firstAttribute="centerX" secondItem="3233" secondAttribute="centerX" id="tow-GP-bEo"/>
-                <constraint firstItem="3234" firstAttribute="centerX" secondItem="3233" secondAttribute="centerX" id="ubJ-5r-D89"/>
-                <constraint firstItem="3242" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3233" secondAttribute="leading" constant="4" id="ufe-TS-l3c"/>
-            </constraints>
-            <point key="canvasLocation" x="-666.5" y="-53.5"/>
-        </customView>
-        <customView id="3289" userLabel="BD">
-            <rect key="frame" x="0.0" y="0.0" width="295" height="205"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <subviews>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3293">
-                    <rect key="frame" x="31" y="85" width="233" height="32"/>
-                    <buttonCell key="cell" type="push" title="Open VIDEO_TS or BDMV folder" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="3294">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="openSpecialMediaFolder:" target="-2" id="r36-Sr-6wo"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3291">
-                    <rect key="frame" x="114" y="172" width="68" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="BD_TITLE" usesSingleLineMode="YES" id="3296">
-                        <font key="font" metaFont="systemBold"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-            </subviews>
-            <constraints>
-                <constraint firstItem="3293" firstAttribute="top" secondItem="3291" secondAttribute="bottom" constant="59" id="0hd-Eb-I0E"/>
-                <constraint firstItem="3291" firstAttribute="centerX" secondItem="3289" secondAttribute="centerX" id="1FP-eZ-TZa"/>
-                <constraint firstItem="3291" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3289" secondAttribute="leading" constant="4" id="4oN-0N-ZuK"/>
-                <constraint firstItem="3293" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3289" secondAttribute="leading" constant="4" id="9Th-V0-lq9"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3291" secondAttribute="trailing" constant="4" id="AeS-Ua-5d5"/>
-                <constraint firstItem="3293" firstAttribute="centerY" secondItem="3289" secondAttribute="centerY" id="MUj-Yl-zpy"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3293" secondAttribute="trailing" constant="4" id="uWv-1r-9Fc"/>
-                <constraint firstItem="3293" firstAttribute="centerX" secondItem="3289" secondAttribute="centerX" id="vgv-MF-sZF"/>
-            </constraints>
-        </customView>
         <userDefaultsController representsSharedInstance="YES" id="3521"/>
     </objects>
     <resources>
-        <image name="BAA5A74C-DD04-40F0-86F1-BFC44B673E07" width="1" height="1">
+        <image name="buttonCell:2893:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

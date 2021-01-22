@@ -62,7 +62,6 @@
 - (IBAction)fwd:(id)sender;
 
 - (IBAction)timeSliderAction:(id)sender;
-- (IBAction)fullscreen:(id)sender;
 
 - (void)updateTimeSlider;
 - (void)updateControls;

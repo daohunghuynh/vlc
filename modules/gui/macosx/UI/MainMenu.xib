@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,12 +40,6 @@
                 <outlet property="deinterlaceMenu" destination="1029" id="9d9-tf-Xo4"/>
                 <outlet property="deinterlace_mode" destination="4397" id="4OM-Cr-xZk"/>
                 <outlet property="deinterlace_modeMenu" destination="4398" id="jXJ-Ps-xTP"/>
-                <outlet property="dockMenumute" destination="1623" id="MAM-1R-OFR"/>
-                <outlet property="dockMenunext" destination="1621" id="VAd-Gc-6Xf"/>
-                <outlet property="dockMenuplay" destination="1618" id="GFN-3u-ZOS"/>
-                <outlet property="dockMenuprevious" destination="1622" id="gh0-B2-IOV"/>
-                <outlet property="dockMenustop" destination="1619" id="1xV-sE-5wD"/>
-                <outlet property="documentation" destination="1559" id="9mX-Iu-w1f"/>
                 <outlet property="donation" destination="2298" id="ZzJ-yC-jOi"/>
                 <outlet property="double_window" destination="1171" id="DIg-sW-WS6"/>
                 <outlet property="editMenu" destination="205" id="6Mt-eK-QAx"/>
@@ -59,19 +54,16 @@
                 <outlet property="fullscreenItem" destination="1014" id="tMR-io-6rm"/>
                 <outlet property="fwd" destination="5146" id="WxT-MQ-png"/>
                 <outlet property="half_window" destination="1169" id="e5w-L8-L7t"/>
-                <outlet property="help" destination="2825" id="aty-iD-feZ"/>
                 <outlet property="helpMenu" destination="1135" id="axI-fS-jfG"/>
                 <outlet property="hide" destination="134" id="JTd-z4-Lb3"/>
                 <outlet property="hide_others" destination="145" id="TV9-HK-Ave"/>
                 <outlet property="info" destination="1192" id="BPE-5A-AU4"/>
                 <outlet property="jumpToTime" destination="5138" id="XK6-rV-lr9"/>
                 <outlet property="license" destination="2834" id="0tU-nu-6dP"/>
-                <outlet property="loop" destination="5151" id="scu-xu-Tvh"/>
                 <outlet property="mcopyItem" destination="197" id="aBx-7l-f4e"/>
                 <outlet property="messages" destination="1003" id="q4C-pt-kQo"/>
                 <outlet property="minimize" destination="5606" id="tN3-Ho-T0c"/>
                 <outlet property="mute" destination="1066" id="ndO-1U-1KF"/>
-                <outlet property="next" destination="5152" id="uop-ZB-n1Q"/>
                 <outlet property="normal_window" destination="1170" id="T6u-xA-21q"/>
                 <outlet property="openSubtitleFile" destination="5515" id="XNQ-8J-eQH"/>
                 <outlet property="open_capture" destination="3292" id="wtp-L5-xZc"/>
@@ -83,18 +75,13 @@
                 <outlet property="pasteItem" destination="203" id="H04-s9-3uF"/>
                 <outlet property="play" destination="5142" id="B2I-n1-EOc"/>
                 <outlet property="player" destination="999" id="A2q-jC-Whd"/>
-                <outlet property="playlist" destination="1002" id="nhI-Gw-yev"/>
-                <outlet property="playlistTableColumns" destination="5247" id="06N-Dh-fFm"/>
-                <outlet property="playlistTableColumnsMenu" destination="5248" id="EIe-gQ-bnk"/>
                 <outlet property="postprocessing" destination="2133" id="Yn3-kZ-0qr"/>
                 <outlet property="postprocessingMenu" destination="2132" id="7NO-zF-sUN"/>
                 <outlet property="prefs" destination="801" id="Kaq-ct-Qwu"/>
-                <outlet property="previous" destination="5153" id="trU-9v-MNR"/>
                 <outlet property="program" destination="5150" id="dPB-aq-tDK"/>
                 <outlet property="programMenu" destination="5157" id="KWP-K8-oMv"/>
                 <outlet property="quit" destination="136" id="ERT-Jv-lbB"/>
                 <outlet property="quitAfterPB" destination="5140" id="mFx-Ho-gjA"/>
-                <outlet property="random" destination="5144" id="udx-Ex-DRg"/>
                 <outlet property="rate" destination="5139" id="aY0-wl-au4"/>
                 <outlet property="rateLabel" destination="4615" id="6f3-cW-zii"/>
                 <outlet property="rateTextField" destination="4617" id="JAE-en-G5V"/>
@@ -107,7 +94,6 @@
                 <outlet property="rendererMenu" destination="ODg-VN-8Tv" id="3Ox-BO-HyW"/>
                 <outlet property="rendererMenuItem" destination="wYl-A2-q30" id="obH-UF-FmA"/>
                 <outlet property="rendererNoneItem" destination="eE8-qf-9x9" id="Ol2-yz-0eF"/>
-                <outlet property="repeat" destination="5143" id="ulG-wD-gtG"/>
                 <outlet property="revealInFinder" destination="3945" id="z7n-A2-K5o"/>
                 <outlet property="save_playlist" destination="1599" id="spC-pk-6W4"/>
                 <outlet property="screen" destination="1016" id="VFv-ey-gJR"/>
@@ -145,7 +131,6 @@
                 <outlet property="toggleEffectsButton" destination="5537" id="Gg8-nl-gzx"/>
                 <outlet property="toggleJumpButtons" destination="5240" id="53V-UC-536"/>
                 <outlet property="togglePlaymodeButtons" destination="5242" id="9TB-F7-ttT"/>
-                <outlet property="toggleSidebar" destination="5413" id="cz7-Zr-1lC"/>
                 <outlet property="trackSynchronization" destination="4412" id="BHW-NJ-jbd"/>
                 <outlet property="videoMenu" destination="334" id="7Ri-Tc-yej"/>
                 <outlet property="videoeffects" destination="2390" id="fXe-JA-9GI"/>
@@ -157,11 +142,8 @@
                 <outlet property="vol_down" destination="1065" id="iI9-ay-pAs"/>
                 <outlet property="vol_up" destination="1064" id="8I9-3j-p1J"/>
                 <outlet property="voutMenu" destination="2730" id="ZHq-j3-Ggd"/>
-                <outlet property="voutMenufullscreen" destination="2732" id="NC7-qA-BIE"/>
                 <outlet property="voutMenumute" destination="2743" id="k5B-Oz-GjX"/>
-                <outlet property="voutMenunext" destination="2739" id="CkI-w1-GZo"/>
                 <outlet property="voutMenuplay" destination="2731" id="ZHl-el-YIL"/>
-                <outlet property="voutMenuprev" destination="2740" id="V0k-Yw-9Xz"/>
                 <outlet property="voutMenusnapshot" destination="2746" id="m6W-rm-Amg"/>
                 <outlet property="voutMenustop" destination="2747" id="T2o-zS-bak"/>
                 <outlet property="voutMenuvoldown" destination="2744" id="zCg-lp-pUV"/>
@@ -172,11 +154,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application" customClass="NSObject">
-            <connections>
-                <outlet property="dockMenu" destination="1617" id="hLP-Rj-RIm"/>
-            </connections>
-        </customObject>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <menu title="MainMenu" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
                 <menuItem title="VLC" id="56">
@@ -385,17 +363,6 @@
                                     <action selector="toggleEffectsButton:" target="-2" id="QSm-2E-Nlo"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Show Sidebar" id="5413">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="toggleSidebar:" target="-2" id="e7y-3l-ZUS"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="5250"/>
-                            <menuItem title="Playlist Table Columns" id="5247">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Playlist Table Columns" id="5248"/>
-                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -443,31 +410,6 @@
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="5155">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem title="Previous" keyEquivalent="" id="5153">
-                                <connections>
-                                    <action selector="prev:" target="-2" id="KvF-1M-7ks"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Next" keyEquivalent="" id="5152">
-                                <connections>
-                                    <action selector="next:" target="-2" id="6Kt-HZ-5Nj"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Shuffle" keyEquivalent="z" id="5144">
-                                <connections>
-                                    <action selector="random:" target="-2" id="oVh-n6-tgV"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Repeat Item" keyEquivalent="r" id="5143">
-                                <connections>
-                                    <action selector="repeatPlay:" target="-2" id="s9q-8A-wdE"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Repeat Playlist" keyEquivalent="l" id="5151">
-                                <connections>
-                                    <action selector="loopPlayList:" target="-2" id="CVo-ZJ-1l3"/>
-                                </connections>
                             </menuItem>
                             <menuItem title="A→B Loop" keyEquivalent="L" id="5409">
                                 <connections>
@@ -746,12 +688,6 @@
                                     <action selector="showMainWindow:" target="-2" id="BXQ-oU-PvS"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Playlist" keyEquivalent="p" id="1002">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="showPlaylist:" target="-2" id="Kqz-Ng-6tj"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="Media Information..." keyEquivalent="i" id="1192">
                                 <connections>
                                     <action selector="showInformationPanel:" target="-2" id="Edf-vq-P29"/>
@@ -809,11 +745,6 @@
                 <menuItem title="Help" id="1134">
                     <menu key="submenu" title="Help" id="1135">
                         <items>
-                            <menuItem title="VLC media player Help" keyEquivalent="?" id="2825">
-                                <connections>
-                                    <action selector="showHelp:" target="-2" id="Tuw-ca-6xj"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="Licence" id="2834">
                                 <connections>
                                     <action selector="showLicense:" target="-2" id="RZ4-f2-Smi"/>
@@ -821,11 +752,6 @@
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="2832">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem title="Online Documentation..." id="1559">
-                                <connections>
-                                    <action selector="openDocumentation:" target="-2" id="06t-Au-GPn"/>
-                                </connections>
                             </menuItem>
                             <menuItem title="Online Forum..." id="2300">
                                 <connections>
@@ -850,41 +776,6 @@
                 </menuItem>
             </items>
         </menu>
-        <menu title="Menu" id="1617" userLabel="DockMenu">
-            <items>
-                <menuItem title="Play/Pause" id="1618">
-                    <connections>
-                        <action selector="play:" target="-2" id="vcB-tR-lAC"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Stop" id="1619">
-                    <connections>
-                        <action selector="stop:" target="-2" id="TWP-i1-TiR"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="1620">
-                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                </menuItem>
-                <menuItem title="Previous" id="1622">
-                    <connections>
-                        <action selector="prev:" target="-2" id="0g5-JQ-JeO"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Next" id="1621">
-                    <connections>
-                        <action selector="next:" target="-2" id="20t-I1-nS9"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="1624">
-                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                </menuItem>
-                <menuItem title="Mute" id="1623">
-                    <connections>
-                        <action selector="mute:" target="-2" id="DSj-9k-ZBw"/>
-                    </connections>
-                </menuItem>
-            </items>
-        </menu>
         <menu title="Menu" id="2730" userLabel="VoutMenu">
             <items>
                 <menuItem title="Play/Pause" id="2731">
@@ -895,19 +786,6 @@
                 <menuItem title="Stop" id="2747">
                     <connections>
                         <action selector="stop:" target="-2" id="3I6-RI-EYq"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="2737">
-                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                </menuItem>
-                <menuItem title="Previous" id="2740">
-                    <connections>
-                        <action selector="prev:" target="-2" id="vXI-cH-ZFv"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Next" id="2739">
-                    <connections>
-                        <action selector="next:" target="-2" id="R0J-4w-l8s"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="2741">
@@ -926,14 +804,6 @@
                 <menuItem title="Mute" id="2743">
                     <connections>
                         <action selector="mute:" target="-2" id="b0P-Qt-O4g"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="2738">
-                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                </menuItem>
-                <menuItem title="Fullscreen" id="2732">
-                    <connections>
-                        <action selector="toggleFullscreen:" target="-2" id="7fK-95-1OE"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="2745">

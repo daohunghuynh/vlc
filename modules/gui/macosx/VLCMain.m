@@ -247,7 +247,7 @@ static VLCMain *sharedInstance = nil;
         if ([NSApp currentSystemPresentationOptions] & NSApplicationPresentationFullScreen)
             var_SetBool(p_playlist, "fullscreen", YES);
 
-        _nativeFullscreenMode = var_InheritBool(p_intf, "macosx-nativefullscreenmode");
+        _nativeFullscreenMode = YES; // var_InheritBool(p_intf, "macosx-nativefullscreenmode");
 
         if (var_InheritInteger(p_intf, "macosx-icon-change")) {
             /* After day 354 of the year, the usual VLC cone is replaced by another cone

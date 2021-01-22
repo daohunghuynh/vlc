@@ -42,38 +42,15 @@
 @property (readwrite, strong) IBOutlet NSButton *nextButton;
 @property (readwrite, strong) IBOutlet NSLayoutConstraint *nextButtonWidthConstraint;
 
-@property (readwrite, strong) IBOutlet NSButton *playlistButton;
-@property (readwrite, strong) IBOutlet NSButton *repeatButton;
-@property (readwrite, strong) IBOutlet NSLayoutConstraint *repeatButtonWidthConstraint;
-
-@property (readwrite, strong) IBOutlet NSButton *shuffleButton;
-@property (readwrite, strong) IBOutlet NSLayoutConstraint *shuffleButtonWidthConstraint;
-
 @property (readwrite, strong) IBOutlet VLCVolumeSlider *volumeSlider;
 @property (readwrite, strong) IBOutlet NSButton *volumeDownButton;
 @property (readwrite, strong) IBOutlet NSButton *volumeUpButton;
 
-@property (readwrite, strong) IBOutlet NSButton *effectsButton;
-@property (readwrite, strong) IBOutlet NSLayoutConstraint *effectsButtonWidthConstraint;
-
 - (IBAction)stop:(id)sender;
 
-- (IBAction)shuffle:(id)sender;
 - (IBAction)volumeAction:(id)sender;
-- (IBAction)effects:(id)sender;
 
-- (void)setRepeatOne;
-- (void)setRepeatAll;
-- (void)setRepeatOff;
-- (IBAction)repeat:(id)sender;
-
-- (void)setShuffle;
-
-- (IBAction)togglePlaylist:(id)sender;
-
-- (void)toggleEffectsButton;
 - (void)toggleJumpButtons;
-- (void)togglePlaymodeButtons;
 
 - (void)updateVolumeSlider;
 - (void)updateControls;

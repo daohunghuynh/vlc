@@ -42,9 +42,10 @@ class VLCCoreInteraction {
 
 //    private var AppleRemote *_remote
 //    private var b_remote_button_hold: Bool = false /* true as long as the user holds the left,right,plus or minus on the remote control */
-    static let instance = VLCCoreInteraction()
 
-// MARK: - Initialization
+    // MARK: - Initialization
+
+    static let instance = VLCCoreInteraction()
 
     init() {
         let p_intf = getIntf()!
@@ -160,46 +161,37 @@ class VLCCoreInteraction {
         }
     }
 
-//        func previous
-//            {
-//                playlist_Prev(pl_Get(getIntf()))
-//            }
-//
-//            func next
-//                {
-//                    playlist_Next(pl_Get(getIntf()))
-//                }
-
     var durationOfCurrentPlaylistItem: Int64 {
         var duration: Int64 = -1
         let p_input = playlist_CurrentInput(pl_Get(getIntf()))
         if p_input == nil {
             return duration
         }
-        getInputControl(p_input!, Int32(INPUT_GET_LENGTH.rawValue), duration)
+        let pDuration = UnsafeMutablePointer<Int64>(&duration)
+        getInputControl(p_input!, Int32(INPUT_GET_LENGTH.rawValue), pDuration)
         vlc_object_release(p_input!.as_vlc_object_pointer())
         return (duration / 1_000_000)
         return 0
     }
 
-    var urlOfCurrentPlaylistItem: NSURL? {
+    var urlOfCurrentPlaylistItem: URL? {
         guard let p_input = playlist_CurrentInput(pl_Get(getIntf())) else {
             return nil
         }
 
         let p_item = input_GetItem(p_input)
         if p_item == nil {
-             vlc_object_release(p_input)
+             vlc_object_release(p_input.as_vlc_object_pointer())
              return nil
         }
         let psz_uri = input_item_GetURI(p_item)
         if psz_uri == nil {
-             vlc_object_release(p_input)
+             vlc_object_release(p_input.as_vlc_object_pointer())
              return nil
         }
-        let o_url = NSURL(withString: psz_uri)
+        let o_url = URL(string: String(cString: psz_uri!))
         free(psz_uri)
-        vlc_object_release(p_input)
+        vlc_object_release(p_input.as_vlc_object_pointer())
         return o_url
     }
 
@@ -210,31 +202,30 @@ class VLCCoreInteraction {
 
         let p_item = input_GetItem(p_input)
         if p_item == nil {
-            vlc_object_release(p_input)
+            vlc_object_release(p_input.as_vlc_object_pointer())
             return nil
         }
-        let psz_uri = String.fromCString(input_item_GetURI(p_item))
-        if psz_uri == nil {
-            vlc_object_release(p_input)
+        let psz_uri = input_item_GetURI(p_item)
+        let uri = psz_uri != nil ? String(cString: psz_uri!) : nil
+        if uri == nil {
+            vlc_object_release(p_input.as_vlc_object_pointer())
             return nil
         }
 
-        var name = ""
-        let format = var_InheritString(getIntf(), "input-title-format")
-        if format != nil {
-            let formated = vlc_strfinput(p_input, format)
+        var name: String?
+        if let format = var_InheritString(getIntf()?.as_vlc_object_pointer(), "input-title-format") {
+            name = String(cString: vlc_strfinput(p_input, format))
             free(format)
-            name = String.fromCString(formated)
         }
-        let url = NSURL(withString:psz_uri)
-        if name == "" {
-            if url.isFileURL {
-                name = NSFileManager.default.displayName(atPath: url.path)
+        let url = URL(string: uri!)
+        if name == nil {
+            if url != nil, url!.isFileURL {
+                name = FileManager.default.displayName(atPath: url!.path)
             } else {
-                name = url.absoluteString
+                name = url?.absoluteString
             }
         }
-        vlc_object_release(p_input)
+        vlc_object_release(p_input.as_vlc_object_pointer())
         return name
     }
 
@@ -255,15 +246,15 @@ class VLCCoreInteraction {
             return
         }
 
-        let i_interval: Int64 = var_InheritInteger(p_input!.as_vlc_object_pointer(), p_value)
+        let i_interval: Int64 = var_InheritInteger(p_input.as_vlc_object_pointer(), p_value)
         if i_interval > 0 {
-            var val: mtime_t = CLOCK_FREQ * i_interval
+            var val: mtime_t = vlc_tick_from_sec(Double(i_interval))
             if b_value == false {
                 val *= -1
             }
-            var_SetInteger(p_input!.as_vlc_object_pointer(), "time-offset", val)
+            var_SetInteger(p_input.as_vlc_object_pointer(), "time-offset", val)
         }
-        vlc_object_release(p_input!.as_vlc_object_pointer())
+        vlc_object_release(p_input.as_vlc_object_pointer())
     }
 
     func forwardExtraShort() {
@@ -298,132 +289,38 @@ class VLCCoreInteraction {
         jumpWithValue("long-jump-size", forward: false)
     }
 
-//                                    func shuffle
-//                                        {
-//                                            let p_intf = getIntf()
-//                                            if (!p_intf)
-//                                            return
-//
-//                                            vlc_value_t val
-//                                            playlist_t * p_playlist = pl_Get(p_intf)
-//                                            vout_thread_t *p_vout = getVout()
-//
-//                                            var_Get(p_playlist, "random", &val)
-//                                            val.b_bool = !val.b_bool
-//                                            var_Set(p_playlist, "random", val)
-//                                            if (val.b_bool) {
-//                                                if (p_vout) {
-//                                                    vout_OSDMessage(p_vout, VOUT_SPU_CHANNEL_OSD, "%s", _("Random On"))
-//                                                    vlc_object_release(p_vout)
-//                                                }
-//                                                config_PutInt("random", 1)
-//                                            }
-//                                            else
-//                                            {
-//                                                if (p_vout) {
-//                                                    vout_OSDMessage(p_vout, VOUT_SPU_CHANNEL_OSD, "%s", _("Random Off"))
-//                                                    vlc_object_release(p_vout)
-//                                                }
-//                                                config_PutInt("random", 0)
-//                                            }
-//                                        }
-//
-//                                        func repeatAll
-//                                            {
-//                                                let p_intf = getIntf()
-//                                                if (!p_intf)
-//                                                return
-//
-//                                                playlist_t * p_playlist = pl_Get(p_intf)
-//
-//                                                var_SetBool(p_playlist, "repeat", false)
-//                                                var_SetBool(p_playlist, "loop", true)
-//                                                config_PutInt("repeat", false)
-//                                                config_PutInt("loop", true)
-//
-//                                                vout_thread_t *p_vout = getVout()
-//                                                if (p_vout) {
-//                                                    vout_OSDMessage(p_vout, VOUT_SPU_CHANNEL_OSD, "%s", _("Repeat All"))
-//                                                    vlc_object_release(p_vout)
-//                                                }
-//                                            }
-//
-//                                            func repeatOne
-//                                                {
-//                                                    let p_intf = getIntf()
-//                                                    if (!p_intf)
-//                                                    return
-//
-//                                                    playlist_t * p_playlist = pl_Get(p_intf)
-//
-//                                                    var_SetBool(p_playlist, "repeat", true)
-//                                                    var_SetBool(p_playlist, "loop", false)
-//                                                    config_PutInt("repeat", true)
-//                                                    config_PutInt("loop", false)
-//
-//                                                    vout_thread_t *p_vout = getVout()
-//                                                    if (p_vout) {
-//                                                        vout_OSDMessage(p_vout, VOUT_SPU_CHANNEL_OSD, "%s", _("Repeat One"))
-//                                                        vlc_object_release(p_vout)
-//                                                    }
-//                                                }
-//
-//                                                func repeatOff
-//                                                    {
-//                                                        let p_intf = getIntf()
-//                                                        if (!p_intf)
-//                                                        return
-//
-//                                                        playlist_t * p_playlist = pl_Get(p_intf)
-//
-//                                                        var_SetBool(p_playlist, "repeat", false)
-//                                                        var_SetBool(p_playlist, "loop", false)
-//                                                        config_PutInt("repeat", false)
-//                                                        config_PutInt("loop", false)
-//
-//                                                        vout_thread_t *p_vout = getVout()
-//                                                        if (p_vout) {
-//                                                            vout_OSDMessage(p_vout, VOUT_SPU_CHANNEL_OSD, "%s", _("Repeat Off"))
-//                                                            vlc_object_release(p_vout)
-//                                                        }
-//                                                    }
-//
-//                                                    func setAtoB
-//                                                        {
-//                                                            if (!timeA) {
-//                                                                input_thread_t * p_input = playlist_CurrentInput(pl_Get(getIntf()))
-//                                                                if (p_input) {
-//                                                                    timeA = var_GetInteger(p_input, "time")
-//                                                                    vlc_object_release(p_input)
-//                                                                }
-//                                                            } else if (!timeB) {
-//                                                                input_thread_t * p_input = playlist_CurrentInput(pl_Get(getIntf()))
-//                                                                if (p_input) {
-//                                                                    timeB = var_GetInteger(p_input, "time")
-//                                                                    vlc_object_release(p_input)
-//                                                                }
-//                                                            } else
-//                                                            [self resetAtoB]
-//                                                        }
-//
-//                                                        func resetAtoB
-//                                                            {
-//                                                                timeA = 0
-//                                                                timeB = 0
-//                                                            }
-//
-//                                                            func updateAtoB
-//                                                                {
-//                                                                    if (timeB) {
-//                                                                        input_thread_t * p_input = playlist_CurrentInput(pl_Get(getIntf()))
-//                                                                        if (p_input) {
-//                                                                            mtime_t currentTime = var_GetInteger(p_input, "time")
-//                                                                            if ( currentTime >= timeB || currentTime < timeA)
-//                                                                            var_SetInteger(p_input, "time", timeA)
-//                                                                            vlc_object_release(p_input)
-//                                                                        }
-//                                                                    }
-//                                                                }
+    func setAtoB() {
+        if timeA != 0 {
+            if let p_input = playlist_CurrentInput(pl_Get(getIntf())) {
+                timeA = var_GetInteger(p_input.as_vlc_object_pointer(), "time")
+                vlc_object_release(p_input.as_vlc_object_pointer())
+            }
+        } else if timeB != 0 {
+            if let p_input = playlist_CurrentInput(pl_Get(getIntf())) {
+                timeB = var_GetInteger(p_input.as_vlc_object_pointer(), "time")
+                vlc_object_release(p_input.as_vlc_object_pointer())
+            }
+        } else {
+            resetAtoB()
+        }
+    }
+
+    func resetAtoB() {
+        timeA = 0
+        timeB = 0
+    }
+
+    func updateAtoB() {
+        if timeB != 0 {
+            if let p_input = playlist_CurrentInput(pl_Get(getIntf())) {
+                let currentTime: mtime_t = var_GetInteger(p_input.as_vlc_object_pointer(), "time")
+                if currentTime >= timeB || currentTime < timeA {
+                    var_SetInteger(p_input.as_vlc_object_pointer(), "time", timeA)
+                }
+                vlc_object_release(p_input.as_vlc_object_pointer())
+            }
+        }
+    }
 
     func volumeUp() {
         if let p_intf = getIntf() {
@@ -474,21 +371,21 @@ class VLCCoreInteraction {
     }
 
     func addSubtitlesToCurrentInput(paths: [NSURL]) {
-        guard let p_input = playlist_currentinput(pl_get(getintf())) else {
+        guard let p_input = playlist_CurrentInput(pl_Get(getIntf())) else {
             return
         }
 
         for i in 0..<paths.count {
             if let mrl = vlc_path2uri(String(utf8String: paths[i].path!), nil) {
-                msg_Dbg(getIntf(), "loading subs from %s", mrl)
+//                msg_Dbg(getIntf(), "loading subs from %s", mrl)
 
                 if VLC_SUCCESS != input_AddSlave(p_input, SLAVE_TYPE_SPU, mrl, true, true, true) {
-                    msg_Warn(getIntf(), "unable to load subtitles from '%s'", mrl)
+//                    msg_Warn(getIntf(), "unable to load subtitles from '%s'", mrl)
                 }
                 free(mrl)
             }
         }
-        vlc_object_release(p_input!.as_vlc_object_pointer())
+        vlc_object_release(p_input.as_vlc_object_pointer())
     }
 
     func showPosition() {
@@ -527,7 +424,7 @@ class VLCCoreInteraction {
             vlc_object_release(p_vout.as_vlc_object_pointer())
         } else { // e.g. lion fullscreen toggle
             let fullscreen = var_ToggleBool(pl_Get(p_intf).as_vlc_object_pointer(), "fullscreen")
-            VLCMain.instance.voutController.setFullscreen(fullscreen, forWindow: nil, withAnimation: true)
+            VLCMain.sharedInstance().voutProvider.setFullscreen(fullscreen ? 1 : 0, for: nil, withAnimation: true)
         }
     }
 
@@ -568,8 +465,8 @@ class VLCCoreInteraction {
 
 // MARK: - video filter handling
 
-    func getFilterType(psz_name: String) -> String? {
-        guard let p_obj: UnsafePointer<module_t> = module_find(psz_name) else {
+    private func getFilterType(_ psz_name: String) -> String? {
+        guard let p_obj = module_find(psz_name) else {
             return nil
         }
         if module_provides(p_obj, "video splitter") {
@@ -581,7 +478,7 @@ class VLCCoreInteraction {
         } else if module_provides(p_obj, "sub filter") {
             return "sub-filter"
         } else {
-            msg_Err(getIntf(), "Unknown video filter type.")
+//            msg_Err(getIntf(), "Unknown video filter type.")
             return nil
         }
     }
@@ -589,52 +486,51 @@ class VLCCoreInteraction {
     func setVideoFilter(name filterName: String, on b_on: Bool) {
         let p_intf = getIntf()!
         guard let filter_type = getFilterType(filterName) else {
-            msg_Err(p_intf, "Unable to find filter module \"%s\".", filterName)
+//            msg_Err(p_intf, "Unable to find filter module \"%s\".", filterName)
             return
         }
 
-        let p_playlist: UnsafePointer<playlist_t> = pl_Get(p_intf)
+        let p_playlist = pl_Get(p_intf)!
+//        msg_Dbg(p_intf, "will turn filter '%s' %s", filterName, b_on ? "on" : "off")
 
-        msg_Dbg(p_intf, "will turn filter '%s' %s", filterName, b_on ? "on" : "off")
-
-        var psz_string: String? = String.fromCString(var_InheritString(p_playlist, filter_type))
+        let psz_string = var_InheritString(p_playlist.as_vlc_object_pointer(), filter_type)
+        var filterString = psz_string != nil ? String(cString: psz_string!): nil
 
         if b_on {
-            if psz_string == nil {
-                psz_string = filterName
-            } else if psz_string.range(of: filterName).isEmpty {
-                psz_string = "\(psz_string):\(filterName)"
+            if filterString == nil {
+                filterString = filterName
+            } else if !filterString!.contains(filterName) {
+                filterString = "\(filterString!):\(filterName)"
             }
         } else {
-            if psz_string == nil {
+            if filterString == nil {
                return
             }
 
-            if let psz_parser = psz_string.range(of: filterName) {
-                let index = psz_string.index(after: psz_parser.upperBound)
-                if index != psz_string.endIndex && psz_string[index] == ':') {
-                    psz_string.removeSubrange(psz_parser.lowerBound...index)
+            if let psz_parser = filterString!.range(of: filterName) {
+                let index = filterString!.index(after: psz_parser.upperBound)
+                if index != filterString!.endIndex && filterString![index] == ":" {
+                    filterString!.removeSubrange(psz_parser.lowerBound...index)
                     /*memmove(psz_parser, psz_parser + strlen(filterName) + 1, strlen(psz_parser + strlen(filterName) + 1) + 1)*/
                     /* Remove trailing : : */
-                    if psz_string.last == ':' {
-                    psz_string.removeLast()
+                    if filterString!.last == ":" {
+                        filterString!.removeLast()
                     }
                 } else {
-                    psz_string = String(psz_string.prefix(upTo: psz_parser.lowerBound))
+                    filterString = String(filterString!.prefix(upTo: psz_parser.lowerBound))
                 }
             } else {
                 return
             }
         }
-        var_SetString(p_playlist, filter_type, psz_string)
+        var_SetString(p_playlist.as_vlc_object_pointer(), filter_type, filterString)
 
         /* Try to set non splitter filters on the fly */
         if filter_type != "video-splitter" {
-            if let vouts: [UnsafePointer<vout_thread_t>]? = getVouts() {
-                for val in vouts {
-                    let p_vout: UnsafePointer<vout_thread_t> = val.pointee
-                    var_SetString(p_vout, filter_type, psz_string)
-                    vlc_object_release(p_vout)
+            if let vouts = getVouts() {
+                for vout in vouts {
+                    var_SetString(vout, filter_type, filterString)
+                    vlc_object_release(vout)
                 }
             }
         }
@@ -643,18 +539,18 @@ class VLCCoreInteraction {
     func setVideoFilterProperty(_ property: String, forFilter filter: String, withValue value: vlc_value_t) {
         let p_intf = getIntf()!
         guard let filter_type = getFilterType(filter) else {
-            msg_Err(p_intf, "Unable to find filter module \"%s\".", filter)
+//            msg_Err(p_intf, "Unable to find filter module \"%s\".", filter)
             return
         }
 
-        var varType = 0
+        var varType: Int32 = 0
         var isCommand = false
-        let p_playlist: playlist_t = pl_Get(p_intf)
-        let vouts: [UnsafePointer<vout_thread_t>]? = getVouts()
+        let p_playlist = pl_Get(p_intf)!
+        let vouts = getVouts()
 
-        if vouts != nil && vouts.count > 0 {
-            varType = var_Type((vouts.first as vout_thread_t).pointee, property)
-            isCommand = varType & VLC_VAR_ISCOMMAND
+        if let vout = vouts?.first {
+            varType = var_Type(vout.as_vlc_object_pointer(), property.utf8CString)
+            isCommand = (varType & VLC_VAR_ISCOMMAND) != 0
         }
 
         if varType == 0 {
@@ -662,23 +558,23 @@ class VLCCoreInteraction {
         }
         varType &= VLC_VAR_CLASS
 
-        if varType == VLC_VAR_Bool {
-            var_SetBool(p_playlist, property, value.b_bool)
+        if varType == VLC_VAR_BOOL {
+            var_SetBool(p_playlist.as_vlc_object_pointer(), property, value.b_bool)
         } else if varType == VLC_VAR_INTEGER {
-            var_SetInteger(p_playlist, property, value.i_int)
+            var_SetInteger(p_playlist.as_vlc_object_pointer(), property, value.i_int)
         } else if varType == VLC_VAR_FLOAT {
-            var_SetFloat(p_playlist, property, value.f_float)
+            var_SetFloat(p_playlist.as_vlc_object_pointer(), property, value.f_float)
         } else if varType == VLC_VAR_STRING {
-            var_SetString(p_playlist, property, EnsureUTF8(value.psz_string))
+            var_SetString(p_playlist.as_vlc_object_pointer(), property, EnsureUTF8(value.psz_string))
         } else {
-            msg_Err(p_intf, "Module %s's %s variable is of an unsupported type ( %d )", filter, property, varType)
+//            msg_Err(p_intf, "Module %s's %s variable is of an unsupported type ( %d )", filter, property, varType)
             isCommand = false
         }
 
         if isCommand {
             if vouts != nil {
-                for p_vout in vouts {
-                    var_SetChecked(p_vout, property, varType, value)
+                for vout in vouts {
+                    var_SetChecked(vout, property, varType, value)
                     /*#ifndef NDEBUG*/
                     /*Int i_cur_type = var_Type(p_vout, property)*/
                     /*assert((i_cur_type & VLC_VAR_CLASS) == varType)*/
@@ -689,8 +585,8 @@ class VLCCoreInteraction {
         }
 
         if vouts != nil {
-            for p_vout in vouts {
-                vlc_object_release(p_vout)
+            for vout in vouts {
+                vlc_object_release(vout)
             }
         }
     }
@@ -768,179 +664,6 @@ class VLCCoreInteraction {
 //    }
 //}
 
-// MARK: - Apple Remote Control
-
-//func startListeningWithAppleRemote
-//{
-//    [_remote startListening: self]
-//    }
-//
-//    func stopListeningWithAppleRemote
-//        {
-//            [_remote stopListening:self]
-//}
-
-// MARK: - menu navigation
-
-    //func menuFocusActivate
-//{
-//    let p_input_thread = playlist_CurrentInput(pl_Get(getIntf()))
-//    if (p_input_thread == NULL)
-//    return
-//
-//    input_Control(p_input_thread, INPUT_NAV_ACTIVATE, NULL )
-//    vlc_object_release(p_input_thread)
-//    }
-//
-//    func moveMenuFocusLeft
-//        {
-//            let p_input_thread = playlist_CurrentInput(pl_Get(getIntf()))
-//            if (p_input_thread == NULL)
-//            return
-//
-//            input_Control(p_input_thread, INPUT_NAV_LEFT, NULL )
-//            vlc_object_release(p_input_thread)
-//        }
-//
-//        func moveMenuFocusRight
-//            {
-//                let p_input_thread = playlist_CurrentInput(pl_Get(getIntf()))
-//                if (p_input_thread == NULL)
-//                return
-//
-//                input_Control(p_input_thread, INPUT_NAV_RIGHT, NULL )
-//                vlc_object_release(p_input_thread)
-//            }
-//
-//            func moveMenuFocusUp
-//                {
-//                    let p_input_thread = playlist_CurrentInput(pl_Get(getIntf()))
-//                    if (p_input_thread == NULL)
-//                    return
-//
-//                    input_Control(p_input_thread, INPUT_NAV_UP, NULL )
-//                    vlc_object_release(p_input_thread)
-//                }
-//
-//                func moveMenuFocusDown
-//                    {
-//                        let p_input_thread = playlist_CurrentInput(pl_Get(getIntf()))
-//                        if (p_input_thread == NULL)
-//                        return
-//
-//                        input_Control(p_input_thread, INPUT_NAV_DOWN, NULL )
-//                        vlc_object_release(p_input_thread)
-//                    }
-//
-//                    /* Helper method for the remote control interface in order to trigger forward/backward and volume
-//                     increase/decrease as long as the user holds the left/right, plus/minus button */
-    //                    func executeHoldActionForRemoteButton: (buttonIdentifierNumber: NSNumber*
-//{
-//    let p_intf = getIntf()
-//    if (!p_intf)
-//    return
-//
-//    if (b_remote_button_hold) {
-//        switch([buttonIdentifierNumber intValue]) {
-//        case kRemoteButtonRight_Hold:
-//            [self forward]
-//            break
-//        case kRemoteButtonLeft_Hold:
-//            [self backward]
-//            break
-//        case kRemoteButtonVolume_Plus_Hold:
-//            if (p_intf)
-//            var_SetInteger(p_intf->obj.libvlc, "key-action", ACTIONID_VOL_UP)
-//            break
-//        case kRemoteButtonVolume_Minus_Hold:
-//            if (p_intf)
-//            var_SetInteger(p_intf->obj.libvlc, "key-action", ACTIONID_VOL_DOWN)
-//            break
-//        }
-//        if (b_remote_button_hold) {
-//            /* trigger event */
-//            [self performSelector:#selector(executeHoldActionForRemoteButton:)
-//                withObject:buttonIdentifierNumber
-//                afterDelay:0.25]
-//        }
-//    }
-//    }
-//
-//    /* Apple Remote callback */
-    //    func appleRemoteButton: (buttonIdentifier: AppleRemoteEventIdentifier
-//pressedDown: (Bool) pressedDown
-//clickCount: (unsigned Int) count
-//{
-//    let p_intf = getIntf()
-//    if (!p_intf)
-//    return
-//
-//    switch(buttonIdentifier) {
-//    case k2009RemoteButtonFullscreen:
-//        [self toggleFullscreen]
-//        break
-//    case k2009RemoteButtonPlay:
-//        [self playOrPause]
-//        break
-//    case kRemoteButtonPlay:
-//        if (count >= 2)
-//        [self toggleFullscreen]
-//        else
-//        [self playOrPause]
-//        break
-//    case kRemoteButtonVolume_Plus:
-//        if (config_GetInt("macosx-appleremote-sysvol"))
-//        [NSSound increaseSystemVolume]
-//        else
-//        if (p_intf)
-//        var_SetInteger(p_intf->obj.libvlc, "key-action", ACTIONID_VOL_UP)
-//        break
-//    case kRemoteButtonVolume_Minus:
-//        if (config_GetInt("macosx-appleremote-sysvol"))
-//        [NSSound decreaseSystemVolume]
-//        else
-//        if (p_intf)
-//        var_SetInteger(p_intf->obj.libvlc, "key-action", ACTIONID_VOL_DOWN)
-//        break
-//    case kRemoteButtonRight:
-//        if (config_GetInt("macosx-appleremote-prevnext"))
-//        [self forward]
-//        else
-//        [self next]
-//        break
-//    case kRemoteButtonLeft:
-//        if (config_GetInt("macosx-appleremote-prevnext"))
-//        [self backward]
-//        else
-//        [self previous]
-//        break
-//    case kRemoteButtonRight_Hold:
-//    case kRemoteButtonLeft_Hold:
-//    case kRemoteButtonVolume_Plus_Hold:
-//    case kRemoteButtonVolume_Minus_Hold:
-//        /* simulate an event as long as the user holds the button */
-//        b_remote_button_hold = pressedDown
-//        if (pressedDown) {
-//            NSNumber* buttonIdentifierNumber = [NSNumber numberWithInt:buttonIdentifier]
-//            [self performSelector:#selector(executeHoldActionForRemoteButton:)
-//                withObject:buttonIdentifierNumber]
-//        }
-//        break
-//    case kRemoteButtonMenu:
-//        [self showPosition]
-//        break
-//    case kRemoteButtonPlay_Sleep:
-//    {
-//        NSAppleScript * script = [[NSAppleScript alloc] initWithSource:@"tell application \"System Events\" to sleep"]
-//        [script executeAndReturnError:nil]
-//        break
-//        }
-//    default:
-//        /* Add here whatever you want other buttons to do */
-//        break
-//    }
-//}
-
 // MARK: - Key Shortcuts
 
 ///*****************************************************************************
@@ -949,79 +672,81 @@ class VLCCoreInteraction {
 // * otherwise ignore it and return false (where it will get handled by Cocoa).
 // *****************************************************************************/
 
-    func keyEvent(event: NSEvent) {
+    func keyEvent(_ event: NSEvent) -> Bool {
         var eventHandled = false
         if let key = event.charactersIgnoringModifiers?.first {
             if let p_input = playlist_CurrentInput(pl_Get(getIntf())) {
-                if let p_vout: vout_thread_t = input_GetVout(p_input) {
+                if let p_vout = input_GetVout(p_input) {
                     /* Escape */
-                    if key == (unichar) 0x1b {
-                        if var_GetBool(p_vout, "fullscreen") {
+                    if key == "\u{1b}" {
+                        if var_GetBool(p_vout.as_vlc_object_pointer(), "fullscreen") {
                             toggleFullscreen()
                             eventHandled = true
                         }
                     }
-                    vlc_object_release(p_vout)
+                    vlc_object_release(p_vout.as_vlc_object_pointer())
                 }
-                vlc_object_release(p_input)
+                vlc_object_release(p_input.as_vlc_object_pointer())
             }
         }
         return eventHandled
     }
 
-    func hasDefinedShortcutKey(event: NSEvent, force: Bool) {
+    func hasDefinedShortcutKey(event: NSEvent, force: Bool) -> Bool {
         var val = vlc_value_t()
         val.i_int = 0
 
         var i_pressed_modifiers = event.modifierFlags
 
         if i_pressed_modifiers.contains(.control) {
-            val.i_int |= KEY_MODIFIER_CTRL
+            val.i_int |= Int64(KEY_MODIFIER_CTRL)
         }
         if i_pressed_modifiers.contains(.option) {
-            val.i_int |= KEY_MODIFIER_ALT
+            val.i_int |= Int64(KEY_MODIFIER_ALT)
         }
         if i_pressed_modifiers.contains(.shift) {
-            val.i_int |= KEY_MODIFIER_SHIFT
+            val.i_int |= Int64(KEY_MODIFIER_SHIFT)
         }
         if i_pressed_modifiers.contains(.command) {
-            val.i_int |= KEY_MODIFIER_COMMAND
+            val.i_int |= Int64(KEY_MODIFIER_COMMAND)
         }
 
         if let characters = event.charactersIgnoringModifiers?.lowercased() {
-            let key: UInt16? = characters.utf16.first
+            let key = characters.utf16.first!
 
             /* handle Lion's default key combo for fullscreen-toggle in addition to our own hotkeys */
-            if key == UInt16('f') && i_pressed_modifiers.contains(.control) && i_pressed_modifiers.contains(.command) {
+            if key == UInt16("f") && i_pressed_modifiers.contains(.control) && i_pressed_modifiers.contains(.command) {
                 toggleFullscreen()
                 return true
             }
 
             if !force {
-                switch key {
+                switch Int(key) {
                 case NSDeleteCharacter, NSDeleteFunctionKey, NSDeleteCharFunctionKey,
                     NSBackspaceCharacter, NSUpArrowFunctionKey, NSDownArrowFunctionKey,
                     NSEnterCharacter, NSCarriageReturnCharacter:
                     return false
+                default:
+                    break
                 }
             }
 
-            val.i_int |= CocoaKeyToVLC(key)
+            val.i_int |= Int64(CocoaKeyToVLC(key))
 
             var found_key = false
             for str in _usedHotkeys {
-                let i_keyModifiers: UInt = VLCStringUtility.VLCModifiersToCocoa(str)
-                if characters == VLCStringUtility.VLCKeyToString(str) &&
-                    i_keyModifiers.contains(.shift)     == i_pressed_modifiers.contains(.shift) &&
-                    i_keyModifiers.contains(.control)   == i_pressed_modifiers.contains(.control) &&
-                    i_keyModifiers.contains(.option)    == i_pressed_modifiers.contains(.option) &&
-                    i_keyModifiers.contains(.command)   == i_pressed_modifiers.contains(.command) {
+                let i_keyModifiers = UInt(VLCStringUtility.sharedInstance().vlcModifiers(toCocoa: str))
+                if characters == VLCStringUtility.sharedInstance()?.vlcKey(to: str) &&
+                    NSEvent.ModifierFlags(rawValue: i_keyModifiers).intersection(.shift)     == i_pressed_modifiers.intersection(.shift) &&
+                    NSEvent.ModifierFlags(rawValue: i_keyModifiers).intersection(.control)   == i_pressed_modifiers.intersection(.control) &&
+                    NSEvent.ModifierFlags(rawValue: i_keyModifiers).intersection(.option)    == i_pressed_modifiers.intersection(.option) &&
+                    NSEvent.ModifierFlags(rawValue: i_keyModifiers).intersection(.command)   == i_pressed_modifiers.intersection(.command) {
                     found_key = true
                     break
                 }
             }
             if found_key {
-                var_SetInteger(getIntf()->obj.libvlc, "key-pressed", val.i_int)
+                var_SetInteger(getIntf().pointee.obj.libvlc.as_vlc_object_pointer(), "key-pressed", val.i_int)
                 return true
             }
         }
@@ -1031,19 +756,19 @@ class VLCCoreInteraction {
     func updateCurrentlyUsedHotkeys() {
         _usedHotkeys = [String]()
         /* Get the main Module */
-        let p_main: UnsafeMutablePointer<module_t> = module_get_main()
+        let p_main = module_get_main()
         // assert(p_main)
 
-        var confsize: UInt
-        let p_config: UnsafeMutablePointer<module_config_t> = module_config_get(p_main, &confsize)
+        var confsize: UInt32
+        let p_config = module_config_get(p_main, &confsize)!
         for i in 0..<confsize {
-            let config = p_config[i]
-            if (p_item.pointee.i_type & ~0xF) != 0 &&
-                p_item.pointee.psz_name != nil &&
-                strncmp(p_item.pointee.psz_name, "key-", 4) == 0 &&
-                !(p_item.pointee.psz_text == nil || String(cString: p_item.pointee.psz_text).isEmpty) {
-                if p_item.pointee.value.psz != nil {
-                    _usedHotkeys.append(String(cString: p_item.pointee.value.psz))
+            let config = p_config[Int(i)]
+            if (config.i_type & ~0xF) != 0 &&
+                config.psz_name != nil &&
+                strncmp(config.psz_name, "key-", 4) == 0 &&
+                !(config.psz_text == nil || String(cString: config.psz_text).isEmpty) {
+                if config.value.psz != nil {
+                    _usedHotkeys.append(String(cString: config.value.psz))
                 }
             }
         }

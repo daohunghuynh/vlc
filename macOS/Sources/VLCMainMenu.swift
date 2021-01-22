@@ -50,9 +50,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
     @IBOutlet weak var toggleJumpButtons: NSMenuItem!
     @IBOutlet weak var togglePlaymodeButtons: NSMenuItem!
     @IBOutlet weak var toggleEffectsButton: NSMenuItem!
-    @IBOutlet weak var toggleSidebar: NSMenuItem!
-    @IBOutlet weak var playlistTableColumnsMenu: NSMenu!
-    @IBOutlet weak var playlistTableColumns: NSMenuItem!
 
     @IBOutlet weak var controlsMenu: NSMenu!
     @IBOutlet weak var play: NSMenuItem!
@@ -69,9 +66,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
     @IBOutlet weak var trackSynchronization: NSMenuItem!
     @IBOutlet weak var previous: NSMenuItem!
     @IBOutlet weak var next: NSMenuItem!
-    @IBOutlet weak var random: NSMenuItem!
-//    @IBOutlet weak var repeat: NSMenuItem!
-    @IBOutlet weak var loop: NSMenuItem!
     @IBOutlet weak var AtoBloop: NSMenuItem!
     @IBOutlet weak var quitAfterPB: NSMenuItem!
     @IBOutlet weak var fwd: NSMenuItem!
@@ -156,37 +150,24 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
     @IBOutlet weak var audioeffects: NSMenuItem!
     @IBOutlet weak var videoeffects: NSMenuItem!
     @IBOutlet weak var bookmarks: NSMenuItem!
-    @IBOutlet weak var playlist: NSMenuItem!
     @IBOutlet weak var info: NSMenuItem!
     @IBOutlet weak var errorsAndWarnings: NSMenuItem!
     @IBOutlet weak var messages: NSMenuItem!
     @IBOutlet weak var bring_atf: NSMenuItem!
 
     @IBOutlet weak var helpMenu: NSMenu!
-    @IBOutlet weak var help: NSMenuItem!
-    @IBOutlet weak var documentation: NSMenuItem!
     @IBOutlet weak var license: NSMenuItem!
     @IBOutlet weak var website: NSMenuItem!
     @IBOutlet weak var donation: NSMenuItem!
     @IBOutlet weak var forum: NSMenuItem!
 
-    /* dock menu */
-    @IBOutlet weak var dockMenuplay: NSMenuItem!
-    @IBOutlet weak var dockMenustop: NSMenuItem!
-    @IBOutlet weak var dockMenunext: NSMenuItem!
-    @IBOutlet weak var dockMenuprevious: NSMenuItem!
-    @IBOutlet weak var dockMenumute: NSMenuItem!
-
     /* vout menu */
     @IBOutlet weak var voutMenu: NSMenu!
     @IBOutlet weak var voutMenuplay: NSMenuItem!
     @IBOutlet weak var voutMenustop: NSMenuItem!
-    @IBOutlet weak var voutMenuprev: NSMenuItem!
-    @IBOutlet weak var voutMenunext: NSMenuItem!
     @IBOutlet weak var voutMenuvolup: NSMenuItem!
     @IBOutlet weak var voutMenuvoldown: NSMenuItem!
     @IBOutlet weak var voutMenumute: NSMenuItem!
-    @IBOutlet weak var voutMenufullscreen: NSMenuItem!
     @IBOutlet weak var voutMenusnapshot: NSMenuItem!
     //    @IBOutlet weak var let playlistSaveAccessoryView: NSView
     //    @IBOutlet weak var let playlistSaveAccessoryPopup: NSPopUpButton
@@ -194,8 +175,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
 
     //    let _aboutWindowController: VLCAboutWindowController
 //    var aboutWindowController: Any?
-    //    VLCHelpWindowController  *_helpWindowController
-//    var helpWindowController: Any?
     //    let _addonsController: VLCAddonsWindowController
 //    var addonsController: Any?
     var rendererMenuController: VLCRendererMenuController!
@@ -251,8 +230,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
         setupMenuItem(self.fullscreenItem, withConfigKey: "key-toggle-fullscreen")
 
         setupMenuItem(self.snapshot, withConfigKey: "key-snapshot")
-
-        setupMenuItem(self.random, withConfigKey: "key-random")
 
         setupMenuItem(self.half_window, withConfigKey: "key-zoom-half")
 
@@ -438,8 +415,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
         self.togglePlaymodeButtons.state = var_InheritBool(getIntf()!.as_vlc_object_pointer(), "macosx-show-playmode-buttons") ? .on : .off
         self.toggleEffectsButton.title = "Show Audio Effects Button"
         self.toggleEffectsButton.state = var_InheritBool(getIntf()?.as_vlc_object_pointer(), "macosx-show-effects-button") ? .on : .off
-        self.toggleSidebar.title = "Show Sidebar"
-        self.playlistTableColumns.title = "Playlist Table Columns"
 
         self.controlsMenu.title = "Playback"
         self.play.title = "Play"
@@ -454,9 +429,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
         self.trackSynchronization.title = "Track Synchronization"
         self.previous.title = "Previous"
         self.next.title = "Next"
-        self.random.title = "Random"
-//        self.repeat.title = "Repeat One"
-        self.loop.title = "Repeat All"
         self.AtoBloop.title = "A→B Loop"
         self.quitAfterPB.title = "Quit after Playback"
         self.fwd.title = "Step Forward"
@@ -546,29 +518,17 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
         self.bring_atf.title = "Bring All to Front"
 
         self.helpMenu.title = "Help"
-        self.help.title = "VLC media player Help..."
         self.license.title = "License"
-        self.documentation.title = "Online Documentation..."
         self.website.title = "VideoLAN Website..."
         self.donation.title = "Make a donation..."
         self.forum.title = "Online Forum..."
 
-        /* dock menu */
-        self.dockMenuplay.title = "Play"
-        self.dockMenustop.title = "Stop"
-        self.dockMenunext.title = "Next"
-        self.dockMenuprevious.title = "Previous"
-        self.dockMenumute.title = "Mute"
-
         /* vout menu */
         self.voutMenuplay.title = "Play"
         self.voutMenustop.title = "Stop"
-        self.voutMenuprev.title = "Previous"
-        self.voutMenunext.title = "Next"
         self.voutMenuvolup.title = "Volume Up"
         self.voutMenuvoldown.title = "Volume Down"
         self.voutMenumute.title = "Mute"
-        self.voutMenufullscreen.title = "Fullscreen"
         self.voutMenusnapshot.title = "Snapshot"
     }
 
@@ -746,14 +706,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
 //        self.togglePlaymodeButtons.state = b_value
     }
 
-    @IBAction func toggleSidebar(_ sender: Any) {
-//        VLCMain.instance.mainWindow.toggleLeftSubSplitView
-    }
-
-    private func updateSidebarMenuItem(show: Bool) {
-//        self.toggleSidebar.state =show
-    }
-
 // MARK: - Playback
 
     @IBAction func play(_ sender: Any) {
@@ -762,42 +714,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
 
     @IBAction func stop(_ sender: Any) {
 //        VLCCoreInteraction.instance.stop
-    }
-
-    @IBAction func prev(_ sender: Any) {
-//        VLCCoreInteraction.instance.previous
-    }
-
-    @IBAction func next(_ sender: Any) {
-//        VLCCoreInteraction.instance.next
-    }
-
-    @IBAction func random(_ sender: Any) {
-//        VLCCoreInteraction.instance.shuffle
-    }
-
-    @IBAction func repeatPlay(_ sender: Any) {
-//        vlc_value_t val
-//        let p_intf: intf_thread_t = getIntf()
-//        let p_playlist: playlist_t = pl_Get(p_intf)
-//
-//        var_Get(p_playlist, "repeat", &val)
-//        if (! val.b_bool)
-//        VLCCoreInteraction.instance.repeatOne
-//        else
-//        VLCCoreInteraction.instance.repeatOff
-    }
-
-    @IBAction func loopPlayList(_ sender: Any) {
-//        vlc_value_t val
-//        let p_intf: intf_thread_t = getIntf()
-//        let p_playlist: playlist_t = pl_Get(p_intf)
-//
-//        var_Get(p_playlist, "loop", &val)
-//        if (! val.b_bool)
-//        VLCCoreInteraction.instance.repeatAll
-//        else
-//        VLCCoreInteraction.instance.repeatOff
     }
 
     @IBAction func forward(_ sender: Any) {
@@ -1261,10 +1177,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
 //        VLCMain.instance.mainWindow.makeKeyAndOrderFront:sender
     }
 
-    @IBAction func showPlaylist(_ sender: Any) {
-//    VLCMain.instance.mainWindow.changePlaylistState: psUserMenuEvent
-    }
-
 // MARK: - Help and Docs
 
     @IBAction func showAbout(_ sender: Any) {
@@ -1279,19 +1191,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
 //        self.aboutWindowController = VLCAboutWindowController.alloc.init
 //
 //        self.aboutWindowController.showGPL
-    }
-
-    @IBAction func showHelp(_ sender: Any) {
-//        if (!self.helpWindowController)
-//        self.helpWindowController = VLCHelpWindowController.alloc.init
-//
-//        self.helpWindowController.showHelp
-    }
-
-    @IBAction func openDocumentation(_ sender: Any) {
-//        let url: NSURL = NSURL.URLWithString: @"http://www.videolan.org/doc/"
-//
-//        NSWorkspace.sharedWorkspace.openURL: url
     }
 
     @IBAction func openWebsite(_ sender: Any) {
@@ -1320,37 +1219,12 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
 
     func setPlay() {
 //        self.play.title = "Play"
-//        self.dockMenuplay.title = "Play"
 //        self.voutMenuplay.title = "Play"
     }
 
     func setPause() {
 //        self.play.title = "Pause"
-//        self.dockMenuplay.title = "Pause"
 //        self.voutMenuplay.title = "Pause"
-    }
-
-    private func setRepeatOne() {
-//    self.repeat.state = NSOnState
-//    self.loop.state = NSOffState
-    }
-
-    private func setRepeatAll() {
-//        self.repeat.state = NSOffState
-//        self.loop.state = NSOnState
-    }
-
-    private func setRepeatOff() {
-//        self.repeat.state = NSOffState
-//        self.loop.state = NSOffState
-    }
-
-    private func setShuffle() {
-//        bool b_value
-//        let p_playlist: playlist_t = pl_Get(getIntf())
-//        b_value = var_GetBool(p_playlist, "random")
-//
-//        self.random.state = b_value
     }
 
 // MARK: - Dynamic menu creation and validation
@@ -1578,16 +1452,12 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
 //        let p_playlist: playlist_t = pl_Get(getIntf())
 //        let p_input: input_thread_t = playlist_CurrentInput(p_playlist)
 //
-//        if (mi == self.stop || mi == self.voutMenustop || mi == self.dockMenustop) {
+//        if (mi == self.stop || mi == self.voutMenustop) {
 //        if (!p_input)
 //        enabled = false
 //        self.setupMenus]; /* Make sure input menu is up to date */
 //        } else if (mi == self.previous          ||
-//        mi == self.voutMenuprev      ||
-//        mi == self.dockMenuprevious  ||
 //        mi == self.next              ||
-//        mi == self.voutMenunext      ||
-//        mi == self.dockMenunext
 //        ) {
 //        PL_LOCK
 //        enabled = playlist_CurrentSize(p_playlist) > 1
@@ -1623,7 +1493,7 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
 //        } else {
 //        enabled = false
 //        }
-//        } else if (mi == self.mute || mi == self.dockMenumute || mi == self.voutMenumute) {
+//        } else if (mi == self.mute || mi == self.voutMenumute) {
 //        mi.state = VLCCoreInteraction.instance.mute ? NSOnState : NSOffState
 //        self.setupMenus]; /* Make sure audio menu is up to date */
 //        self.refreshAudioDeviceList)
@@ -1633,8 +1503,6 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
 //        mi == self.fittoscreen           ||
 //        mi == self.snapshot              ||
 //        mi == self.voutMenusnapshot      ||
-//        mi == self.fullscreenItem        ||
-//        mi == self.voutMenufullscreen    ||
 //        mi == self.floatontop
 //        ) {
 //        enabled = false
@@ -1645,7 +1513,7 @@ class VLCMainMenu : NSMenu, NSMenuDelegate {
 //        if (mi == self.floatontop)
 //        mi.state = var_GetBool(p_vout, "video-on-top")
 //
-//        if (mi == self.fullscreenItem || mi == self.voutMenufullscreen)
+//        if (mi == self.fullscreenItem )
 //        mi.state = var_GetBool(p_vout, "fullscreen")
 //
 //        enabled = true

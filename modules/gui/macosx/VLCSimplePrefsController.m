@@ -556,7 +556,6 @@ static inline const char * __config_GetLabel(vlc_object_t *p_this, const char *p
     [self setupButton:_intf_statusIconCheckbox forBoolValue: "macosx-statusicon"];
     [self setupButton:_intf_mediakeysCheckbox forBoolValue: "macosx-mediakeys"];
 
-    [self setupButton:_video_nativeFullscreenCheckbox forBoolValue: "macosx-nativefullscreenmode"];
     [self setupButton:_video_embeddedCheckbox forBoolValue: "embedded-video"];
 
     [self setupButton:_intf_pauseitunesPopup forIntList: "macosx-control-itunes"];
@@ -660,7 +659,7 @@ static inline const char * __config_GetLabel(vlc_object_t *p_this, const char *p
     [self setupButton:_video_deinterlace_modePopup forStringList: "deinterlace-mode"];
 
     // set lion fullscreen mode restrictions
-    [self enableLionFullscreenMode: [_video_nativeFullscreenCheckbox state]];
+    [self enableLionFullscreenMode: YES];
 
     /***************************
      * input & codecs settings *
@@ -964,7 +963,7 @@ static inline void save_string_list(intf_thread_t * p_intf, id object, const cha
         config_PutInt("macosx-pause-minimized", [_video_pauseWhenMinimizedCheckbox state]);
 
         config_PutInt("embedded-video", [_video_embeddedCheckbox state]);
-        config_PutInt("macosx-nativefullscreenmode", [_video_nativeFullscreenCheckbox state]);
+        config_PutInt("macosx-nativefullscreenmode", YES);
         config_PutInt("macosx-vdev", [[_video_devicePopup selectedItem] tag]);
 
         config_PutPsz("snapshot-path", [[_video_snap_folderTextField stringValue] UTF8String]);
@@ -1137,7 +1136,7 @@ static inline void save_string_list(intf_thread_t * p_intf, id object, const cha
 - (IBAction)videoSettingChanged:(id)sender
 {
     if (sender == _video_nativeFullscreenCheckbox)
-        [self enableLionFullscreenMode:[sender state]];
+        [self enableLionFullscreenMode:YES];
     else if (sender == _video_snap_folderButton) {
         _selectFolderPanel = [[NSOpenPanel alloc] init];
         [_selectFolderPanel setCanChooseDirectories: YES];

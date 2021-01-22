@@ -36,23 +36,6 @@
  *
  *  Holds all specific outlets, actions and code for the main window controls bar.
  *****************************************************************************/
-
-@interface VLCMainWindowControlsBar()
-{
-    NSImage * _repeatImage;
-    NSImage * _pressedRepeatImage;
-    NSImage * _repeatAllImage;
-    NSImage * _pressedRepeatAllImage;
-    NSImage * _repeatOneImage;
-    NSImage * _pressedRepeatOneImage;
-    NSImage * _shuffleImage;
-    NSImage * _pressedShuffleImage;
-    NSImage * _shuffleOnImage;
-    NSImage * _pressedShuffleOnImage;
-}
-
-@end
-
 @implementation VLCMainWindowControlsBar
 
 - (void)awakeFromNib
@@ -61,16 +44,6 @@
 
     [self.stopButton setToolTip: _NS("Stop")];
     self.stopButton.accessibilityLabel = self.stopButton.toolTip;
-
-    [self.playlistButton setToolTip: _NS("Show/Hide Playlist")];
-    self.playlistButton.accessibilityLabel = self.playlistButton.toolTip;
-
-    [self.repeatButton setToolTip: _NS("Repeat")];
-    self.repeatButton.accessibilityLabel = _NS("Change repeat mode. Modes: repeat one, repeat all and no repeat.");
-    self.repeatButton.accessibilityTitle = self.repeatButton.toolTip;
-
-    [self.shuffleButton setToolTip: _NS("Shuffle")];
-    self.shuffleButton.accessibilityLabel = self.shuffleButton.toolTip;
 
     NSString *volumeTooltip = [NSString stringWithFormat:_NS("Volume: %i %%"), 100];
     [self.volumeSlider setToolTip: volumeTooltip];
@@ -82,37 +55,12 @@
     [self.volumeUpButton setToolTip: _NS("Full Volume")];
     self.volumeUpButton.accessibilityLabel = self.volumeUpButton.toolTip;
 
-    [self.effectsButton setToolTip: _NS("Audio Effects")];
-    self.effectsButton.accessibilityTitle = _NS("Open Audio Effects window");
-    self.effectsButton.accessibilityLabel = self.effectsButton.toolTip;
-
     [self.stopButton setImage: imageFromRes(@"stop")];
     [self.stopButton setAlternateImage: imageFromRes(@"stop-pressed")];
-
-    [self.playlistButton setImage: imageFromRes(@"playlist-btn")];
-    [self.playlistButton setAlternateImage: imageFromRes(@"playlist-btn-pressed")];
-    _repeatImage = imageFromRes(@"repeat");
-    _pressedRepeatImage = imageFromRes(@"repeat-pressed");
-    _repeatAllImage  = imageFromRes(@"repeat-all");
-    _pressedRepeatAllImage = imageFromRes(@"repeat-all-pressed");
-    _repeatOneImage = imageFromRes(@"repeat-one");
-    _pressedRepeatOneImage = imageFromRes(@"repeat-one-pressed");
-    _shuffleImage = imageFromRes(@"shuffle");
-    _pressedShuffleImage = imageFromRes(@"shuffle-pressed");
-    _shuffleOnImage = imageFromRes(@"shuffle-blue");
-    _pressedShuffleOnImage = imageFromRes(@"shuffle-blue-pressed");
 
     [self.volumeDownButton setImage: imageFromRes(@"volume-low")];
     [self.volumeUpButton setImage: imageFromRes(@"volume-high")];
     [self.volumeSlider setUsesBrightArtwork: YES];
-
-    if (self.nativeFullscreenMode) {
-        [self.effectsButton setImage: imageFromRes(@"effects-one-button")];
-        [self.effectsButton setAlternateImage: imageFromRes(@"effects-one-button-pressed")];
-    } else {
-        [self.effectsButton setImage: imageFromRes(@"effects-double-buttons")];
-        [self.effectsButton setAlternateImage: imageFromRes(@"effects-double-buttons-pressed")];
-    }
 
     [self.fullscreenButton setImage: imageFromRes(@"fullscreen-double-buttons")];
     [self.fullscreenButton setAlternateImage: imageFromRes(@"fullscreen-double-buttons-pressed")];
@@ -121,23 +69,12 @@
     [self.prevButton setAlternateImage: imageFromRes(@"previous-6btns-pressed")];
     [self.nextButton setImage: imageFromRes(@"next-6btns")];
     [self.nextButton setAlternateImage: imageFromRes(@"next-6btns-pressed")];
-    [self.repeatButton setImage: _repeatImage];
-    [self.repeatButton setAlternateImage: _pressedRepeatImage];
-    [self.shuffleButton setImage: _shuffleImage];
-    [self.shuffleButton setAlternateImage: _pressedShuffleImage];
 
     BOOL b_mute = ![[VLCCoreInteraction sharedInstance] mute];
     [self.volumeSlider setEnabled: b_mute];
     [self.volumeSlider setMaxValue: [[VLCCoreInteraction sharedInstance] maxVolume]];
     [self.volumeSlider setDefaultValue: AOUT_VOLUME_DEFAULT];
     [self.volumeUpButton setEnabled: b_mute];
-
-    // configure optional buttons
-    if (!var_InheritBool(getIntf(), "macosx-show-effects-button"))
-        [self removeEffectsButton:NO];
-
-    if (!var_InheritBool(getIntf(), "macosx-show-playmode-buttons"))
-        [self removePlaymodeButtons:NO];
 
     if (!var_InheritBool(getIntf(), "macosx-show-playback-buttons"))
         [self removeJumpButtons:NO];
@@ -148,7 +85,6 @@
 
 #pragma mark -
 #pragma mark interface customization
-
 
 - (void)hideButtonWithConstraint:(NSLayoutConstraint *)constraint animation:(BOOL)animation
 {
@@ -164,40 +100,6 @@
 
     NSLayoutConstraint *animatedConstraint = animation ? constraint.animator : constraint;
     animatedConstraint.constant = ((NSButton *)constraint.firstItem).image.size.width;
-}
-
-- (void)toggleEffectsButton
-{
-    if (var_InheritBool(getIntf(), "macosx-show-effects-button"))
-        [self addEffectsButton:YES];
-    else
-        [self removeEffectsButton:YES];
-}
-
-- (void)addEffectsButton:(BOOL)withAnimation
-{
-    [NSAnimationContext beginGrouping];
-    [self showButtonWithConstraint:self.effectsButtonWidthConstraint animation:withAnimation];
-
-    id button = withAnimation ? self.fullscreenButton.animator : self.fullscreenButton;
-    if (!self.nativeFullscreenMode) {
-        [button setImage: imageFromRes(@"fullscreen-double-buttons")];
-        [button setAlternateImage: imageFromRes(@"fullscreen-double-buttons-pressed")];
-    }
-    [NSAnimationContext endGrouping];
-}
-
-- (void)removeEffectsButton:(BOOL)withAnimation
-{
-    [NSAnimationContext beginGrouping];
-    [self hideButtonWithConstraint:self.effectsButtonWidthConstraint animation:withAnimation];
-
-    id button = withAnimation ? self.fullscreenButton.animator : self.fullscreenButton;
-    if (!self.nativeFullscreenMode) {
-        [button setImage: imageFromRes(@"fullscreen-one-button")];
-        [button setAlternateImage: imageFromRes(@"fullscreen-one-button-pressed")];
-    }
-    [NSAnimationContext endGrouping];
 }
 
 - (void)toggleJumpButtons
@@ -243,39 +145,6 @@
     [self toggleForwardBackwardMode: NO];
 }
 
-- (void)togglePlaymodeButtons
-{
-    if (var_InheritBool(getIntf(), "macosx-show-playmode-buttons"))
-        [self addPlaymodeButtons:YES];
-    else
-        [self removePlaymodeButtons:YES];
-}
-
-- (void)addPlaymodeButtons:(BOOL)withAnimation
-{
-    [NSAnimationContext beginGrouping];
-    [self showButtonWithConstraint:self.repeatButtonWidthConstraint animation:withAnimation];
-    [self showButtonWithConstraint:self.shuffleButtonWidthConstraint animation:withAnimation];
-
-    id button = withAnimation ? self.playlistButton.animator : self.playlistButton;
-    [button setImage:imageFromRes(@"playlist-btn")];
-    [button setAlternateImage:imageFromRes(@"playlist-btn-pressed")];
-    [NSAnimationContext endGrouping];
-}
-
-- (void)removePlaymodeButtons:(BOOL)withAnimation
-{
-    [NSAnimationContext beginGrouping];
-
-    [self hideButtonWithConstraint:self.repeatButtonWidthConstraint animation:withAnimation];
-    [self hideButtonWithConstraint:self.shuffleButtonWidthConstraint animation:withAnimation];
-
-    id button = withAnimation ? self.playlistButton.animator : self.playlistButton;
-    [button setImage:imageFromRes(@"playlist-1btn")];
-    [button setAlternateImage:imageFromRes(@"playlist-1btn-pressed")];
-    [NSAnimationContext endGrouping];
-}
-
 #pragma mark -
 #pragma mark Extra button actions
 
@@ -295,75 +164,6 @@
     [[VLCCoreInteraction sharedInstance] next];
 }
 
-- (void)setRepeatOne
-{
-    [self.repeatButton setImage: _repeatOneImage];
-    [self.repeatButton setAlternateImage: _pressedRepeatOneImage];
-}
-
-- (void)setRepeatAll
-{
-    [self.repeatButton setImage: _repeatAllImage];
-    [self.repeatButton setAlternateImage: _pressedRepeatAllImage];
-}
-
-- (void)setRepeatOff
-{
-    [self.repeatButton setImage: _repeatImage];
-    [self.repeatButton setAlternateImage: _pressedRepeatImage];
-}
-
-- (IBAction)repeat:(id)sender
-{
-    vlc_value_t looping,repeating;
-    intf_thread_t * p_intf = getIntf();
-    playlist_t * p_playlist = pl_Get(p_intf);
-
-    var_Get(p_playlist, "repeat", &repeating);
-    var_Get(p_playlist, "loop", &looping);
-
-    if (!repeating.b_bool && !looping.b_bool) {
-        /* was: no repeating at all, switching to Repeat One */
-        [[VLCCoreInteraction sharedInstance] repeatOne];
-        [self setRepeatOne];
-    }
-    else if (repeating.b_bool && !looping.b_bool) {
-        /* was: Repeat One, switching to Repeat All */
-        [[VLCCoreInteraction sharedInstance] repeatAll];
-        [self setRepeatAll];
-    } else {
-        /* was: Repeat All or bug in VLC, switching to Repeat Off */
-        [[VLCCoreInteraction sharedInstance] repeatOff];
-        [self setRepeatOff];
-    }
-}
-
-- (void)setShuffle
-{
-    bool b_value;
-    playlist_t *p_playlist = pl_Get(getIntf());
-    b_value = var_GetBool(p_playlist, "random");
-
-    if (b_value) {
-        [self.shuffleButton setImage: _shuffleOnImage];
-        [self.shuffleButton setAlternateImage: _pressedShuffleOnImage];
-    } else {
-        [self.shuffleButton setImage: _shuffleImage];
-        [self.shuffleButton setAlternateImage: _pressedShuffleImage];
-    }
-}
-
-- (IBAction)shuffle:(id)sender
-{
-    [[VLCCoreInteraction sharedInstance] shuffle];
-    [self setShuffle];
-}
-
-- (IBAction)togglePlaylist:(id)sender
-{
-    [[[VLCMain sharedInstance] mainWindow] changePlaylistState: psUserEvent];
-}
-
 - (IBAction)volumeAction:(id)sender
 {
     if (sender == self.volumeSlider)
@@ -372,11 +172,6 @@
         [[VLCCoreInteraction sharedInstance] toggleMute];
     else
         [[VLCCoreInteraction sharedInstance] setVolume: AOUT_VOLUME_MAX];
-}
-
-- (IBAction)effects:(id)sender
-{
-    [[[VLCMain sharedInstance] mainMenu] showAudioEffects: sender];
 }
 
 #pragma mark -

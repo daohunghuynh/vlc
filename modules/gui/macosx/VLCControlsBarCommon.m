@@ -56,7 +56,7 @@
 {
     [super awakeFromNib];
     
-    _nativeFullscreenMode = var_InheritBool(getIntf(), "macosx-nativefullscreenmode");
+    _nativeFullscreenMode = YES; //var_InheritBool(getIntf(), "macosx-nativefullscreenmode");
 
     [self.dropView setDrawBorder: NO];
 
@@ -269,11 +269,6 @@
         [self.timeField setStringValue: o_time];
         vlc_object_release(p_input);
     }
-}
-
-- (IBAction)fullscreen:(id)sender
-{
-    [[VLCCoreInteraction sharedInstance] toggleFullscreen];
 }
 
 #pragma mark -
